@@ -1,6 +1,15 @@
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import viewsets
+
+from .models import Employee
+from .serializers import EmployeeSerializer
+
+
+class EmployeeViewSet(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
 
 
 @api_view(["GET"])
