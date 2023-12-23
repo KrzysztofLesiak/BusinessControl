@@ -51,7 +51,7 @@ export const useEmployees = (): useEmployeesData => {
 
       if (
         lastKeyInput.match(/\d/) ||
-        value.match(/\d{3}-$|\d{3}-\d{3}-$/) ||
+        value.match(/\d{3}-$|\d{3}-\d{3}-/) ||
         !value
       ) {
         if (value.length > 11) return;
