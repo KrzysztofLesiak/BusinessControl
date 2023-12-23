@@ -6,10 +6,12 @@ import { Employee } from "./pages/Employees/Employee";
 import { NewEmployee } from "./pages/Employees/NewEmployee";
 
 import "./App.scss";
+import { Navigation } from "./components/Navigation";
 
 function App() {
   return (
     <>
+      <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/employees" element={<Employees />} />
