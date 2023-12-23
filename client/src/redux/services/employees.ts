@@ -1,9 +1,5 @@
 import { api } from "./api";
 
-export type errMsgType = {
-  detail: string;
-};
-
 export type EmployeeType = {
   id?: number;
   firstName: string;
@@ -34,6 +30,13 @@ export const employeesApi = api.injectEndpoints({
         body,
       }),
     }),
+    editEmployee: build.mutation<EmployeeType, Partial<EmployeeType>>({
+      query: (body) => ({
+        url: `employees/${body.id}/`,
+        method: "PUT",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -41,4 +44,5 @@ export const {
   useGetEmployeesQuery,
   useGetEmployeeQuery,
   useAddEmployeeMutation,
+  useEditEmployeeMutation,
 } = employeesApi;

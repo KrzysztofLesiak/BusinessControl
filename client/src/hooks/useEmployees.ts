@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+
 import {
   EmployeeType,
   useAddEmployeeMutation,
@@ -6,6 +7,7 @@ import {
 
 type useEmployeesData = {
   inputValue: EmployeeType;
+  setInputValue: React.Dispatch<React.SetStateAction<EmployeeType>>;
   handleInput: (e: ChangeEvent<HTMLInputElement>) => void;
   handleNewEmployee: (e: FormEvent<HTMLFormElement>) => void;
 };
@@ -21,8 +23,7 @@ export const useEmployees = (): useEmployeesData => {
     phoneNumber: "",
     status: "HI",
     salary: 0,
-  } as EmployeeType);
-
+  });
   const [addEmployee] = useAddEmployeeMutation();
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,6 +83,7 @@ export const useEmployees = (): useEmployeesData => {
 
   return {
     inputValue,
+    setInputValue,
     handleInput,
     handleNewEmployee,
   };

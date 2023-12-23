@@ -1,33 +1,29 @@
-import {
-  errMsgType,
-  useGetEmployeesQuery,
-} from "../../redux/services/employees";
+import { useNavigate } from "react-router-dom";
+import { useGetEmployeesQuery } from "../../redux/services/employees";
 
 export const Employees = () => {
   const {
     data: employees = [],
-    error,
     isLoading,
     isSuccess,
     isError,
   } = useGetEmployeesQuery();
 
-  let content;
+  const navigate = useNavigate();
 
-  if (isLoading) {
-    content = "loading";
-  } else if (isSuccess) {
-    content = employees.map((employee) => (
-      <p key={employee.id}>
-        {employee.firstName} {employee.lastName}
-      </p>
-    ));
-  } else if (isError) {
-    if ("status" in error) {
-      const errMsg = error.data as unknown as errMsgType;
-      content = <div>{errMsg.detail}</div>;
-    }
-  }
-
-  return <section>{content}</section>;
+  return (
+    <section>
+      {isLoading && <p>Loading...</p>}
+      {isSuccess &&
+        employees.map((employee) => (
+          <p
+            key={employee.id}
+            onClick={() => navigate(`/employees/${employee.id}`)}
+          >
+            {employee.firstName} {employee.lastName}
+          </p>
+        ))}
+      {isError && <p>Something went wrong while fetching data</p>}
+    </section>
+  );
 };
