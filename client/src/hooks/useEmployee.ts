@@ -1,8 +1,9 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import {
   EmployeeType,
+  useDeleteEmployeeMutation,
   useEditEmployeeMutation,
   useGetEmployeeQuery,
 } from "../redux/services/employees";
@@ -19,21 +20,13 @@ type useEmployeeData = {
   handleInput: (e: ChangeEvent<HTMLInputElement>) => void;
   handleIsEditable: () => void;
   handleEmployeeEdit: (e: FormEvent<HTMLFormElement>) => void;
+  handleEmployeeDelete: () => void;
 };
 
 export const useEmployee = (): useEmployeeData => {
   const { id } = useParams();
   const [isEditable, setIsEditable] = useState(false);
   const { inputValue, handleInput, setInputValue } = useEmployees();
-  const [
-    editEmployee,
-    {
-      // isLoading: isEditLoading,
-      isSuccess: isEditSuccess,
-      // isError: isEditError,
-    },
-  ] = useEditEmployeeMutation();
-
   const {
     data: employee,
     isLoading: isEmployeeLoading,
@@ -41,6 +34,12 @@ export const useEmployee = (): useEmployeeData => {
     isError: isEmployeeError,
     refetch: refetchGetEmployee,
   } = useGetEmployeeQuery(Number(id));
+  const [editEmployee, { isSuccess: isEditSuccess }] =
+    useEditEmployeeMutation();
+  const [deleteEmployee, { isSuccess: isDeleteSuccess }] =
+    useDeleteEmployeeMutation();
+
+  const navigate = useNavigate();
 
   const handleIsEditable = () => {
     setIsEditable((prev) => !prev);
@@ -52,6 +51,10 @@ export const useEmployee = (): useEmployeeData => {
     editEmployee(inputValue);
   };
 
+  const handleEmployeeDelete = () => {
+    deleteEmployee(Number(id));
+  };
+
   useEffect(() => {
     if (employee) setInputValue(employee);
   }, [employee, setInputValue]);
@@ -59,9 +62,14 @@ export const useEmployee = (): useEmployeeData => {
   useEffect(() => {
     if (isEditSuccess) {
       setIsEditable(false);
-      refetchGetEmployee();
     }
-  }, [isEditSuccess]);
+  }, [isEditSuccess, refetchGetEmployee]);
+
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      navigate("/employees");
+    }
+  }, [isDeleteSuccess, navigate]);
 
   return {
     inputValue,
@@ -74,5 +82,6 @@ export const useEmployee = (): useEmployeeData => {
     handleInput,
     handleIsEditable,
     handleEmployeeEdit,
+    handleEmployeeDelete,
   };
 };

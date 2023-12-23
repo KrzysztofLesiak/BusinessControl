@@ -1,4 +1,5 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   EmployeeType,
@@ -24,7 +25,9 @@ export const useEmployees = (): useEmployeesData => {
     status: "HI",
     salary: 0,
   });
-  const [addEmployee] = useAddEmployeeMutation();
+  const [addEmployee, { isSuccess: isAddSuccess }] = useAddEmployeeMutation();
+
+  const navigate = useNavigate();
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -75,11 +78,14 @@ export const useEmployees = (): useEmployeesData => {
 
   const handleNewEmployee = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    console.log(inputValue);
-
     addEmployee(inputValue);
   };
+
+  useEffect(() => {
+    if (isAddSuccess) {
+      navigate("/employees");
+    }
+  }, [isAddSuccess, navigate]);
 
   return {
     inputValue,
