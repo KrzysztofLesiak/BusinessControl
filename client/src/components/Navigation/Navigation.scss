@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navlink {
+    @apply my-2 flex w-full items-center rounded-lg p-2 text-center lg:w-full;
+}
+.active {
+    @apply bg-blue1-light text-dark shadow-xl shadow-grey-dark/50  transition-all duration-700;
+}
