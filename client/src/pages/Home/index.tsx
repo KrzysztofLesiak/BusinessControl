@@ -16,8 +16,8 @@ export const Home = () => {
 
     return (
         <section className="h-full overflow-y-auto px-8">
-            <div className="m-16 mx-auto text-center text-blue1-dark sm:text-left ">
-                <h1 className="text-2xl font-bold">Good Morning, Username!</h1>
+            <div className="m-16 mx-auto px-4 text-center text-blue1-dark sm:text-left ">
+                <h1 className="text-2xl font-bold">Hello, Username!</h1>
                 <p>
                     {new Intl.DateTimeFormat('en-GB', {
                         dateStyle: 'full',
@@ -26,7 +26,7 @@ export const Home = () => {
                     }).format(date)}
                 </p>
             </div>
-            <div className="mx-auto grid grid-cols-1 gap-8 p-2 md:grid-cols-2 xl:grid-cols-3 ">
+            <div className="mx-auto grid grid-cols-1 gap-8 p-4 md:grid-cols-2 xl:grid-cols-3 ">
                 <div className="mx-auto flex h-auto w-full min-w-[240px] flex-col justify-between rounded-3xl bg-white p-6 shadow-xl">
                     <h2 className="mb-10 flex items-center justify-between text-2xl font-bold text-blue3-dark">
                         Employees
@@ -47,13 +47,13 @@ export const Home = () => {
                         <div className="flex flex-wrap justify-around">
                             <Link
                                 to="/employees/new"
-                                className="mt-6 inline-block w-full rounded-2xl border-4 border-secondary-light bg-none p-3 text-center  hover:bg-secondary-light hover:text-white"
+                                className="mt-6 inline-block w-full rounded-2xl border-4 border-secondary-light bg-none p-2 text-center  hover:bg-secondary-light hover:text-white"
                             >
                                 Add Employee
                             </Link>
                             <Link
                                 to="/employees"
-                                className="mt-4 inline-block w-full  rounded-2xl border-4 border-secondary-light bg-secondary-light  p-3 text-center text-white hover:bg-blue3-light"
+                                className="mt-4 inline-block w-full  rounded-2xl border-4 border-secondary-light bg-secondary-light  p-2 text-center text-white hover:bg-blue3-light"
                             >
                                 Employee List
                             </Link>
