@@ -4,10 +4,15 @@ import { useNavigate } from 'react-router-dom'
 import {
     EmployeeType,
     useAddEmployeeMutation,
+    useGetEmployeesQuery,
 } from '../redux/services/employees'
 
 type useEmployeesData = {
     inputValue: EmployeeType
+    employees: EmployeeType[]
+    isEmployeesLoading: boolean
+    isEmployeesSuccess: boolean
+    isEmployeesError: boolean
     setInputValue: React.Dispatch<React.SetStateAction<EmployeeType>>
     handleInput: (e: ChangeEvent<HTMLInputElement>) => void
     handleNewEmployee: (e: FormEvent<HTMLFormElement>) => void
@@ -23,8 +28,15 @@ export const useEmployees = (): useEmployeesData => {
         postalCode: '',
         phoneNumber: '',
         status: 'HI',
+        salary: 0,
     } as EmployeeType)
     const [addEmployee, { isSuccess: isAddSuccess }] = useAddEmployeeMutation()
+    const {
+        data: employees = [],
+        isLoading: isEmployeesLoading,
+        isSuccess: isEmployeesSuccess,
+        isError: isEmployeesError,
+    } = useGetEmployeesQuery()
 
     const navigate = useNavigate()
 
@@ -88,6 +100,10 @@ export const useEmployees = (): useEmployeesData => {
 
     return {
         inputValue,
+        employees,
+        isEmployeesLoading,
+        isEmployeesSuccess,
+        isEmployeesError,
         setInputValue,
         handleInput,
         handleNewEmployee,
