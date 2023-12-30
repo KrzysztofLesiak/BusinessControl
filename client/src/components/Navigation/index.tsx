@@ -11,9 +11,13 @@ import './Navigation.scss'
 export const Navigation = () => {
     const [isVisible, setIsVisible] = useState(false)
 
+    const changeVisibility = () => {
+        setIsVisible((prev) => !prev)
+    }
+
     return (
         <nav
-            className={`fixed left-0 top-0 z-40 mx-auto h-screen w-16 -translate-x-full bg-secondary-light bg-gradient-to-b from-secondary-light to-blue3-light py-8 text-white transition-all sm:-translate-x-0 lg:w-64 lg:px-8 ${
+            className={`fixed left-0 top-0 z-40 mx-auto h-screen w-16 -translate-x-full bg-secondary-light bg-gradient-to-b from-secondary-light from-30% to-blue3-light py-8 text-white transition-all sm:-translate-x-0 lg:w-64 lg:px-8 ${
                 isVisible ? 'w-64 translate-x-0 px-8' : ''
             }`}
             aria-label="Sidebar"
@@ -29,7 +33,8 @@ export const Navigation = () => {
                             ? 'rotate-180 rounded-l-full'
                             : 'rotate-0 rounded-r-full'
                     }`}
-                    onClick={() => setIsVisible((prev) => !prev)}
+                    onClick={changeVisibility}
+                    data-testid="arrow"
                 />
                 <ul
                     className={`mx-auto w-fit lg:block lg:w-full ${
