@@ -20,7 +20,7 @@ export const EmployeeTable = () => {
             {isEmployeesSuccess && (
                 <>
                     <table className="mx-auto w-full table-auto overflow-hidden rounded-xl border border-blue1-light shadow-xl">
-                        <thead className=" bg-blue1-light">
+                        <thead className=" bg-blue1-light ">
                             <tr>
                                 <th>
                                     <span className="flex w-full flex-row items-center justify-around border-r-2 border-blue2-light p-3">
@@ -30,11 +30,12 @@ export const EmployeeTable = () => {
                                 <th>
                                     <span className="flex w-full flex-row items-center justify-around border-r-2 border-blue2-light p-3">
                                         <p>
-                                            <span className="hidden pr-1 md:inline">
-                                                First
+                                            <span className="hidden md:inline">
+                                                First{' '}
                                             </span>
+                                            Name
                                         </p>
-                                        Name <Chevron />
+                                        <Chevron />
                                     </span>
                                 </th>
                                 <th className="hidden md:table-cell">

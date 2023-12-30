@@ -13,7 +13,7 @@ export const Navigation = () => {
 
     return (
         <nav
-            className={`fixed left-0 top-0 z-40 mx-auto h-screen w-16 -translate-x-full bg-secondary-light py-8 text-white transition-all sm:-translate-x-0 lg:w-64 lg:px-8 ${
+            className={`fixed left-0 top-0 z-40 mx-auto h-screen w-16 -translate-x-full bg-secondary-light bg-gradient-to-b from-secondary-light to-blue3-light py-8 text-white transition-all sm:-translate-x-0 lg:w-64 lg:px-8 ${
                 isVisible ? 'w-64 translate-x-0 px-8' : ''
             }`}
             aria-label="Sidebar"

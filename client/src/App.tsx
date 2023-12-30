@@ -10,9 +10,9 @@ import { Navigation } from './components/Navigation'
 
 function App() {
     return (
-        <div className="bg-secondary-light shadow-lg">
+        <div className="bg-secondary-light bg-gradient-to-b from-secondary-light to-blue3-light shadow-lg">
             <Navigation />
-            <div className="ml-0 h-screen overflow-auto bg-primary-light  transition-all sm:ml-16 sm:rounded-l-3xl lg:ml-64">
+            <div className="ml-0 h-screen overflow-auto bg-primary-light transition-all sm:ml-16 sm:rounded-l-3xl lg:ml-64">
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/employees" element={<Employees />} />

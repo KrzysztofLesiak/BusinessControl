@@ -111,6 +111,7 @@ export const NewEmployee = () => {
                         />
                     </label>
                     <input type="hidden" name="status" value="HI" />
+                    {/* <input type="hidden" name="Position" value="" /> */}
                     <label htmlFor="salary" className="relative">
                         <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-secondary-light">
                             Gross Salary
