@@ -1,31 +1,12 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Arrow from '../../assets/arrow-right-solid.svg?react'
+import { Clock } from './Clock'
 
 export const Home = () => {
-    const [date, setDate] = useState(new Date())
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setDate(new Date())
-        }, 1000)
-
-        return () => clearInterval(interval)
-    }, [])
-
     return (
         <section className="h-full overflow-y-auto px-8">
-            <div className="m-16 mx-auto px-4 text-center text-blue1-dark sm:text-left ">
-                <h1 className="text-2xl font-bold">Hello, Username!</h1>
-                <p>
-                    {new Intl.DateTimeFormat('en-GB', {
-                        dateStyle: 'full',
-                        timeStyle: 'medium',
-                        timeZone: 'Europe/Berlin',
-                    }).format(date)}
-                </p>
-            </div>
+            <Clock />
             <div className="mx-auto grid grid-cols-1 gap-8 p-4 md:grid-cols-2 xl:grid-cols-3 ">
                 <div className="mx-auto flex h-auto w-full min-w-[240px] flex-col justify-between rounded-3xl bg-white p-6 shadow-xl">
                     <h2 className="mb-10 flex items-center justify-between text-2xl font-bold text-blue3-dark">
