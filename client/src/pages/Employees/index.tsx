@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom'
-
 import { EmployeeTable } from './EmployeeTable'
-
 import Filter from '../../assets/filter-solid.svg?react'
 
 export const Employees = () => {

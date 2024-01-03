@@ -1,6 +1,8 @@
 export default {
     preset: 'ts-jest',
     testEnvironment: 'jest-environment-jsdom',
+    automock: false,
+    setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
     transform: {
         '^.+\\.tsx?$': 'ts-jest',
     },
@@ -13,4 +15,7 @@ export default {
         'src/components/**/*.{ts,tsx}',
         '!src/**/*.{test,spec,types}.{ts.tsx}',
     ],
+    testEnvironmentOptions: {
+        customExportConditions: [''],
+    },
 }
