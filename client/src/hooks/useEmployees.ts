@@ -21,17 +21,17 @@ type useEmployeesData = {
     isEmployeeLoading: boolean
     isEmployeeSuccess: boolean
     isEmployeeError: boolean
+    isOnAddPage: boolean
     setInputValue: React.Dispatch<React.SetStateAction<EmployeeType>>
     handleInput: (e: ChangeEvent<HTMLInputElement>) => void
-    handleNewEmployee: (e: FormEvent<HTMLFormElement>) => void
     handleIsEditable: () => void
-    handleEmployeeEdit: (e: FormEvent<HTMLFormElement>) => void
+    handleEmployeeForm: (e: FormEvent<HTMLFormElement>) => void
     handleEmployeeDelete: () => void
 }
 
 export const useEmployees = (): useEmployeesData => {
     const { id } = useParams()
-    const skip = isNaN(Number(id))
+    const isOnAddPage = isNaN(Number(id))
 
     const [inputValue, setInputValue] = useState<EmployeeType>({
         firstName: '',
@@ -61,7 +61,7 @@ export const useEmployees = (): useEmployeesData => {
         isSuccess: isEmployeeSuccess,
         isError: isEmployeeError,
         refetch: refetchGetEmployee,
-    } = useGetEmployeeQuery(Number(id), { skip })
+    } = useGetEmployeeQuery(Number(id), { skip: isOnAddPage })
 
     const [editEmployee, { isSuccess: isEditSuccess }] =
         useEditEmployeeMutation()
@@ -73,10 +73,10 @@ export const useEmployees = (): useEmployeesData => {
         setIsEditable((prev) => !prev)
     }
 
-    const handleEmployeeEdit = (e: FormEvent<HTMLFormElement>) => {
+    const handleEmployeeForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        editEmployee(inputValue)
+        isOnAddPage ? addEmployee(inputValue) : editEmployee(inputValue)
     }
 
     const handleEmployeeDelete = () => {
@@ -132,16 +132,11 @@ export const useEmployees = (): useEmployeesData => {
         setInputValue((prev) => ({ ...prev, [name]: value }))
     }
 
-    const handleNewEmployee = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        addEmployee(inputValue)
-    }
-
     useEffect(() => {
-        if (isAddSuccess) {
+        if (isAddSuccess && isEmployeesSuccess) {
             navigate('/employees')
         }
-    }, [isAddSuccess, navigate])
+    }, [isAddSuccess, isEmployeesSuccess, navigate])
 
     useEffect(() => {
         if (employee) setInputValue(employee)
@@ -170,11 +165,11 @@ export const useEmployees = (): useEmployeesData => {
         isEmployeeLoading,
         isEmployeeSuccess,
         isEmployeeError,
+        isOnAddPage,
         setInputValue,
         handleInput,
-        handleNewEmployee,
         handleIsEditable,
-        handleEmployeeEdit,
+        handleEmployeeForm,
         handleEmployeeDelete,
     }
 }
