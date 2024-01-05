@@ -1,9 +1,12 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import {
     EmployeeType,
     useAddEmployeeMutation,
+    useDeleteEmployeeMutation,
+    useEditEmployeeMutation,
+    useGetEmployeeQuery,
     useGetEmployeesQuery,
 } from '../redux/services/employees'
 
@@ -13,12 +16,23 @@ type useEmployeesData = {
     isEmployeesLoading: boolean
     isEmployeesSuccess: boolean
     isEmployeesError: boolean
+    isEditable: boolean
+    isEditSuccess: boolean
+    isEmployeeLoading: boolean
+    isEmployeeSuccess: boolean
+    isEmployeeError: boolean
     setInputValue: React.Dispatch<React.SetStateAction<EmployeeType>>
     handleInput: (e: ChangeEvent<HTMLInputElement>) => void
     handleNewEmployee: (e: FormEvent<HTMLFormElement>) => void
+    handleIsEditable: () => void
+    handleEmployeeEdit: (e: FormEvent<HTMLFormElement>) => void
+    handleEmployeeDelete: () => void
 }
 
 export const useEmployees = (): useEmployeesData => {
+    const { id } = useParams()
+    const skip = isNaN(Number(id))
+
     const [inputValue, setInputValue] = useState<EmployeeType>({
         firstName: '',
         lastName: '',
@@ -30,13 +44,44 @@ export const useEmployees = (): useEmployeesData => {
         status: 'HI',
         salary: 0,
     } as EmployeeType)
+    const [isEditable, setIsEditable] = useState(false)
+
     const [addEmployee, { isSuccess: isAddSuccess }] = useAddEmployeeMutation()
+
     const {
         data: employees = [],
         isLoading: isEmployeesLoading,
         isSuccess: isEmployeesSuccess,
         isError: isEmployeesError,
     } = useGetEmployeesQuery()
+
+    const {
+        data: employee,
+        isLoading: isEmployeeLoading,
+        isSuccess: isEmployeeSuccess,
+        isError: isEmployeeError,
+        refetch: refetchGetEmployee,
+    } = useGetEmployeeQuery(Number(id), { skip })
+
+    const [editEmployee, { isSuccess: isEditSuccess }] =
+        useEditEmployeeMutation()
+
+    const [deleteEmployee, { isSuccess: isDeleteSuccess }] =
+        useDeleteEmployeeMutation()
+
+    const handleIsEditable = () => {
+        setIsEditable((prev) => !prev)
+    }
+
+    const handleEmployeeEdit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        editEmployee(inputValue)
+    }
+
+    const handleEmployeeDelete = () => {
+        deleteEmployee(Number(id))
+    }
 
     const navigate = useNavigate()
 
@@ -98,14 +143,38 @@ export const useEmployees = (): useEmployeesData => {
         }
     }, [isAddSuccess, navigate])
 
+    useEffect(() => {
+        if (employee) setInputValue(employee)
+    }, [employee, setInputValue])
+
+    useEffect(() => {
+        if (isEditSuccess) {
+            setIsEditable(false)
+        }
+    }, [isEditSuccess, refetchGetEmployee])
+
+    useEffect(() => {
+        if (isDeleteSuccess) {
+            navigate('/employees')
+        }
+    }, [isDeleteSuccess, navigate])
+
     return {
         inputValue,
         employees,
         isEmployeesLoading,
         isEmployeesSuccess,
         isEmployeesError,
+        isEditable,
+        isEditSuccess,
+        isEmployeeLoading,
+        isEmployeeSuccess,
+        isEmployeeError,
         setInputValue,
         handleInput,
         handleNewEmployee,
+        handleIsEditable,
+        handleEmployeeEdit,
+        handleEmployeeDelete,
     }
 }
