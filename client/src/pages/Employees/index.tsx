@@ -1,8 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { EmployeeTable } from './EmployeeTable'
 import Filter from '../../assets/filter-solid.svg?react'
+import { Modal } from './Modal'
+import { Employee } from './Employee'
 
 export const Employees = () => {
+    const { id } = useParams()
+
     return (
         <section className="flex h-full w-full flex-col p-8">
             <div className="m-auto w-full">
@@ -10,7 +14,7 @@ export const Employees = () => {
                     <div className="relative flex  w-full rounded-xl shadow-md sm:m-0 sm:w-fit">
                         <input
                             type="search"
-                            className="sm: z-10 mr-24 w-full rounded-xl border-2 border-blue1-light
+                            className="z-10 mr-24 w-full rounded-xl border-2 border-blue1-light
                         px-4 py-1 text-sm outline-secondary-light sm:w-fit"
                             placeholder="Search"
                         />
@@ -27,6 +31,11 @@ export const Employees = () => {
                 </div>
                 <EmployeeTable />
             </div>
+            {id && (
+                <Modal>
+                    <Employee />
+                </Modal>
+            )}
         </section>
     )
 }

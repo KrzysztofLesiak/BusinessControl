@@ -1,5 +1,7 @@
 import { EmployeeForm } from '../../../components/EmployeeForm'
 import { useEmployees } from '../../../hooks/useEmployees'
+import Chevron from '../../../assets/chevron-up-solid.svg?react'
+import { useNavigate } from 'react-router-dom'
 
 export const Employee = () => {
     const {
@@ -10,14 +12,24 @@ export const Employee = () => {
         handleEmployeeDelete,
     } = useEmployees()
 
+    const navigate = useNavigate()
+
+    const handleNavigate = () => navigate('/employees')
+
     return (
-        <section className="m-auto flex h-full w-full overflow-auto px-2">
-            {isEmployeeLoading && <p>Loading...</p>}
+        <>
+            {isEmployeeLoading && <p className="m-auto">Loading...</p>}
             {isEmployeeSuccess && (
                 <div
                     className="m-auto flex h-fit  min-w-72 flex-col items-center justify-center
                          rounded-3xl bg-white p-8 shadow-xl"
                 >
+                    <div
+                        className="mb-4 w-full text-left"
+                        onClick={handleNavigate}
+                    >
+                        <Chevron className="h-auto w-6 -rotate-90 text-secondary-light" />
+                    </div>
                     <EmployeeForm />
                     <button
                         type="button"
@@ -30,6 +42,6 @@ export const Employee = () => {
             )}
             {isEmployeeError && <p>Something went wrong while fetching data</p>}
             {isEditSuccess && <p>Success</p>}
-        </section>
+        </>
     )
 }
