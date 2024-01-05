@@ -11,7 +11,7 @@ export const Employee = () => {
     } = useEmployees()
 
     return (
-        <section className="m-auto flex h-full w-full overflow-auto px-2 py-8">
+        <section className="m-auto flex h-full w-full overflow-auto px-2">
             {isEmployeeLoading && <p>Loading...</p>}
             {isEmployeeSuccess && (
                 <div
@@ -19,7 +19,11 @@ export const Employee = () => {
                          rounded-3xl bg-white p-8 shadow-xl"
                 >
                     <EmployeeForm />
-                    <button type="button" onClick={handleEmployeeDelete}>
+                    <button
+                        type="button"
+                        onClick={handleEmployeeDelete}
+                        className="w-full rounded-lg border-4 border-error p-3 text-error shadow-md hover:bg-error hover:text-white"
+                    >
                         Delete
                     </button>
                 </div>

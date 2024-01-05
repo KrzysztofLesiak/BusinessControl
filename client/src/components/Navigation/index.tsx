@@ -37,7 +37,7 @@ export const Navigation = () => {
                     data-testid="arrow"
                 />
                 <ul
-                    className={`mx-auto w-fit lg:block lg:w-full ${
+                    className={`mx-auto w-fit p-2 lg:block lg:w-full ${
                         isVisible ? 'w-full' : ''
                     }`}
                 >

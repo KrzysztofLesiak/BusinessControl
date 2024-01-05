@@ -6,6 +6,7 @@ export const EmployeeForm = () => {
         isEditable,
         isOnAddPage,
         handleInput,
+        handleSelect,
         handleIsEditable,
         handleEmployeeForm,
     } = useEmployees()
@@ -26,6 +27,7 @@ export const EmployeeForm = () => {
                     name="firstName"
                     value={inputValue.firstName}
                     onChange={handleInput}
+                    disabled={!isEditable && !isOnAddPage}
                 />
             </label>
             <label htmlFor="lastName" className="relative">
@@ -39,6 +41,7 @@ export const EmployeeForm = () => {
                     name="lastName"
                     value={inputValue.lastName}
                     onChange={handleInput}
+                    disabled={!isEditable && !isOnAddPage}
                 />
             </label>
             <label htmlFor="birthDate" className="relative">
@@ -52,6 +55,7 @@ export const EmployeeForm = () => {
                     name="birthDate"
                     value={inputValue.birthDate}
                     onChange={handleInput}
+                    disabled={!isEditable && !isOnAddPage}
                 />
             </label>
             <label htmlFor="street" className="relative">
@@ -65,6 +69,7 @@ export const EmployeeForm = () => {
                     name="street"
                     value={inputValue.street}
                     onChange={handleInput}
+                    disabled={!isEditable && !isOnAddPage}
                 />
             </label>
             <label htmlFor="city" className="relative">
@@ -78,6 +83,7 @@ export const EmployeeForm = () => {
                     name="city"
                     value={inputValue.city}
                     onChange={handleInput}
+                    disabled={!isEditable && !isOnAddPage}
                 />
             </label>
             <label htmlFor="postalCode" className="relative">
@@ -91,6 +97,7 @@ export const EmployeeForm = () => {
                     name="postalCode"
                     value={inputValue.postalCode}
                     onChange={handleInput}
+                    disabled={!isEditable && !isOnAddPage}
                 />
             </label>
             <label htmlFor="phoneNumber" className="relative">
@@ -104,10 +111,40 @@ export const EmployeeForm = () => {
                     id="phoneNumber"
                     value={inputValue.phoneNumber}
                     onChange={handleInput}
+                    disabled={!isEditable && !isOnAddPage}
                 />
             </label>
-            <input type="hidden" name="status" value="HI" />
-            {/* <input type="hidden" name="Position" value="" /> */}
+            <label htmlFor="status" className="relative">
+                <p className="absolute -top-3 left-3 z-10 rounded-md bg-white px-2 text-secondary-light">
+                    Status
+                </p>
+                <select
+                    className="w-full rounded-lg border border-grey-light p-3 shadow-md outline-secondary-light"
+                    name="status"
+                    id="status"
+                    value={inputValue.status}
+                    onChange={handleSelect}
+                    disabled={!isEditable && !isOnAddPage}
+                >
+                    <option value="HI">Hired</option>
+                    <option value="HO">Holiday</option>
+                    <option value="FI">Fired</option>
+                </select>
+            </label>
+            <label htmlFor="position" className="relative">
+                <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-secondary-light">
+                    Position
+                </p>
+                <input
+                    type="text"
+                    className="w-full rounded-lg border border-grey-light p-3 shadow-md outline-secondary-light"
+                    name="position"
+                    id="position"
+                    // value={inputValue}
+                    // onChange={handleInput}
+                    disabled={!isEditable && !isOnAddPage}
+                />
+            </label>
             <label htmlFor="salary" className="relative">
                 <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-secondary-light">
                     Gross Salary
@@ -120,6 +157,7 @@ export const EmployeeForm = () => {
                     value={inputValue.salary}
                     onChange={handleInput}
                     min={0}
+                    disabled={!isEditable && !isOnAddPage}
                 />
             </label>
             {isOnAddPage && (
@@ -132,14 +170,27 @@ export const EmployeeForm = () => {
             )}
 
             {!isEditable && !isOnAddPage && (
-                <button type="button" onClick={handleIsEditable}>
+                <button
+                    className="col-start-1 mb-8 w-full rounded-lg bg-secondary-light p-3 text-white shadow-md sm:col-end-3"
+                    type="button"
+                    onClick={handleIsEditable}
+                >
                     Edit
                 </button>
             )}
             {isEditable && !isOnAddPage && (
                 <>
-                    <button type="submit">Save</button>
-                    <button type="button" onClick={handleIsEditable}>
+                    <button
+                        type="submit"
+                        className="mb-8 w-full rounded-lg bg-success p-3 text-white shadow-md"
+                    >
+                        Save
+                    </button>
+                    <button
+                        type="button"
+                        className=" mb-8 w-full rounded-lg bg-error p-3 text-white shadow-md"
+                        onClick={handleIsEditable}
+                    >
                         Cancel
                     </button>
                 </>

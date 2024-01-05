@@ -27,6 +27,7 @@ type useEmployeesData = {
     handleIsEditable: () => void
     handleEmployeeForm: (e: FormEvent<HTMLFormElement>) => void
     handleEmployeeDelete: () => void
+    handleSelect: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
 export const useEmployees = (): useEmployeesData => {
@@ -70,6 +71,7 @@ export const useEmployees = (): useEmployeesData => {
         useDeleteEmployeeMutation()
 
     const handleIsEditable = () => {
+        if (isEditable) setInputValue(employee!)
         setIsEditable((prev) => !prev)
     }
 
@@ -132,6 +134,10 @@ export const useEmployees = (): useEmployeesData => {
         setInputValue((prev) => ({ ...prev, [name]: value }))
     }
 
+    const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+        setInputValue((prev) => ({ ...prev, status: e.target.value }))
+    }
+
     useEffect(() => {
         if (isAddSuccess && isEmployeesSuccess) {
             navigate('/employees')
@@ -140,7 +146,7 @@ export const useEmployees = (): useEmployeesData => {
 
     useEffect(() => {
         if (employee) setInputValue(employee)
-    }, [employee, setInputValue])
+    }, [employee, setInputValue, refetchGetEmployee])
 
     useEffect(() => {
         if (isEditSuccess) {
@@ -168,6 +174,7 @@ export const useEmployees = (): useEmployeesData => {
         isOnAddPage,
         setInputValue,
         handleInput,
+        handleSelect,
         handleIsEditable,
         handleEmployeeForm,
         handleEmployeeDelete,

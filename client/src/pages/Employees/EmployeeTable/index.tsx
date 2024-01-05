@@ -96,7 +96,7 @@ export const EmployeeTable = () => {
                                             {employee.salary}
                                         </td>
                                         <td className="hidden p-3 text-center sm:table-cell">
-                                            <span
+                                            <p
                                                 className={` ${
                                                     employee.status === 'HI'
                                                         ? 'bg-success'
@@ -104,16 +104,15 @@ export const EmployeeTable = () => {
                                                             'FI'
                                                           ? 'bg-error'
                                                           : 'bg-warning'
-                                                } rounded-full
-                                              px-3
-                                              py-1 text-white`}
+                                                }
+                                              rounded-full text-white`}
                                             >
                                                 {employee.status === 'HI'
                                                     ? 'Hired'
                                                     : employee.status === 'FI'
                                                       ? 'Fired'
                                                       : 'Holidays'}
-                                            </span>
+                                            </p>
                                         </td>
                                         <td className="hidden p-3 text-center sm:table-cell">
                                             <Link
