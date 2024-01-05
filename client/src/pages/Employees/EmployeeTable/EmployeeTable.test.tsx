@@ -75,25 +75,6 @@ describe('Employees Table', () => {
         expect(employeeRow).toBeInTheDocument()
         fireEvent.click(employeeRow)
     })
-    // function wrapper(props: { children: ReactNode }) {
-    //     return <Provider store={store}>{props.children}</Provider>
-    // }
-    // it('promise resolved', async () => {
-    //     const { result } = renderHook(() => useGetEmployeesQuery(), {
-    //         wrapper,
-    //     })
-    //     expect(result.current).toMatchObject({
-    //         status: 'pending',
-    //         endpointName: 'getEmployees',
-    //         isLoading: true,
-    //         isSuccess: false,
-    //         isError: false,
-    //         isFetching: true,
-    //     })
-
-    //     await waitFor(() => expect(result.current.isSuccess).toBe(true))
-    //     expect(result.current.data).toMatchObject(data)
-    // })
 
     it('promise rejected', async () => {
         server.use(
