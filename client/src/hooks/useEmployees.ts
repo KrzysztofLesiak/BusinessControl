@@ -9,10 +9,13 @@ import {
     useGetEmployeeQuery,
     useGetEmployeesQuery,
 } from '../redux/services/employees'
+import { useSearch } from './useSearch'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { updateEmployees, updateLength } from '../redux/slice/employeesSlice'
+import { RootState } from '../redux/store'
 
 type useEmployeesData = {
     inputValue: EmployeeType
-    employees: EmployeeType[]
     isEmployeesLoading: boolean
     isEmployeesSuccess: boolean
     isEmployeesError: boolean
@@ -22,17 +25,26 @@ type useEmployeesData = {
     isEmployeeSuccess: boolean
     isEmployeeError: boolean
     isOnAddPage: boolean
+    searchInput: string
+    isEmployeesFetching: boolean
+    employeesSortBy: string
+    handleSearch: (event: ChangeEvent<HTMLInputElement>) => void
     setInputValue: React.Dispatch<React.SetStateAction<EmployeeType>>
     handleInput: (e: ChangeEvent<HTMLInputElement>) => void
     handleIsEditable: () => void
     handleEmployeeForm: (e: FormEvent<HTMLFormElement>) => void
     handleEmployeeDelete: () => void
     handleSelect: (e: ChangeEvent<HTMLSelectElement>) => void
+    handleSortBy: (SortByName: string) => void
 }
 
 export const useEmployees = (): useEmployeesData => {
     const { id } = useParams()
     const isOnAddPage = isNaN(Number(id))
+    const searchValue = useAppSelector(
+        (state: RootState) => state.employees.searchValue
+    )
+    const dispatch = useAppDispatch()
 
     const [inputValue, setInputValue] = useState<EmployeeType>({
         firstName: '',
@@ -46,15 +58,19 @@ export const useEmployees = (): useEmployeesData => {
         salary: 0,
     } as EmployeeType)
     const [isEditable, setIsEditable] = useState(false)
+    const [employeesSortBy, setEmployeesSortBy] = useState('id')
+
+    const { searchInput, handleSearch } = useSearch()
 
     const [addEmployee, { isSuccess: isAddSuccess }] = useAddEmployeeMutation()
 
     const {
-        data: employees = [],
+        data: getEmployeesData,
         isLoading: isEmployeesLoading,
         isSuccess: isEmployeesSuccess,
         isError: isEmployeesError,
-    } = useGetEmployeesQuery()
+        isFetching: isEmployeesFetching,
+    } = useGetEmployeesQuery({ searchValue, employeesSortBy })
 
     const {
         data: employee,
@@ -138,11 +154,20 @@ export const useEmployees = (): useEmployeesData => {
         setInputValue((prev) => ({ ...prev, status: e.target.value }))
     }
 
+    const handleSortBy = (sortByName: string) => {
+        setEmployeesSortBy((prev) => {
+            return prev.match(sortByName)
+                ? prev.match(`-${sortByName}`)
+                    ? 'id'
+                    : `-${sortByName}`
+                : sortByName
+        })
+    }
     useEffect(() => {
-        if (isAddSuccess && isEmployeesSuccess) {
+        if (isAddSuccess && !isEmployeesFetching) {
             navigate('/employees')
         }
-    }, [isAddSuccess, isEmployeesSuccess, navigate])
+    }, [isAddSuccess, isEmployeesFetching, navigate])
 
     useEffect(() => {
         if (employee) setInputValue(employee)
@@ -160,9 +185,17 @@ export const useEmployees = (): useEmployeesData => {
         }
     }, [isDeleteSuccess, navigate])
 
+    useEffect(() => {
+        if (getEmployeesData) {
+            dispatch(updateEmployees(getEmployeesData.employees))
+            dispatch(updateLength(getEmployeesData.length))
+        }
+    }, [dispatch, getEmployeesData])
+
+    useEffect(() => {}, [])
+
     return {
         inputValue,
-        employees,
         isEmployeesLoading,
         isEmployeesSuccess,
         isEmployeesError,
@@ -172,11 +205,16 @@ export const useEmployees = (): useEmployeesData => {
         isEmployeeSuccess,
         isEmployeeError,
         isOnAddPage,
+        searchInput,
+        isEmployeesFetching,
+        employeesSortBy,
+        handleSearch,
         setInputValue,
         handleInput,
         handleSelect,
         handleIsEditable,
         handleEmployeeForm,
         handleEmployeeDelete,
+        handleSortBy,
     }
 }

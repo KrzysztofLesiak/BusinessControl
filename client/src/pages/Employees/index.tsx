@@ -3,9 +3,12 @@ import { EmployeeTable } from './EmployeeTable'
 import Filter from '../../assets/filter-solid.svg?react'
 import { Modal } from './Modal'
 import { Employee } from './Employee'
+import { useEmployees } from '../../hooks/useEmployees'
 
 export const Employees = () => {
     const { id } = useParams()
+
+    const { searchInput, handleSearch } = useEmployees()
 
     return (
         <section className="flex h-full w-full flex-col p-8">
@@ -17,6 +20,8 @@ export const Employees = () => {
                             className="z-10 mr-24 w-full rounded-xl border-2 border-blue1-light
                         px-4 py-1 text-sm outline-secondary-light sm:w-fit"
                             placeholder="Search"
+                            value={searchInput}
+                            onChange={handleSearch}
                         />
                         <span className="absolute right-0 flex h-full w-2/4 flex-row items-center justify-end rounded-xl bg-blue1-light py-1 pl-6 text-right text-sm">
                             Filter <Filter className="mx-3" />

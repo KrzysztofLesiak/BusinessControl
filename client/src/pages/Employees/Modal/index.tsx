@@ -12,12 +12,12 @@ export const Modal = ({ children }: ModalProps) => {
 
     return (
         <>
-            <div
-                className="fixed bottom-0 left-0 right-0 top-0 z-20 rounded-l-3xl bg-dark bg-opacity-35 sm:left-16 lg:left-64"
-                onClick={handleNavigate}
-            ></div>
-            <div className="fixed left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 sm:left-[calc(50%+32px)] lg:left-[calc(50%+128px)]">
-                <div className="m-auto flex h-full min-w-[600px] overflow-auto px-2">
+            <div className="fixed bottom-0 left-0 right-0 top-0 z-20 overflow-auto rounded-l-3xl sm:left-16 lg:left-64">
+                <div
+                    className="fixed bottom-0 left-0 right-0 top-0 bg-dark bg-opacity-35"
+                    onClick={handleNavigate}
+                ></div>
+                <div className="absolute left-1/2 top-1/2 flex h-full min-w-[600px] -translate-x-1/2  -translate-y-1/2 overflow-auto px-2">
                     {children}
                 </div>
             </div>

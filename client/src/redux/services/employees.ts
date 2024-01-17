@@ -13,14 +13,26 @@ export type EmployeeType = {
     salary: number
 }
 
+type EmployeesResponse = {
+    employees: EmployeeType[]
+    length: number
+}
+
+type EmployeesQuery = {
+    searchValue: string
+    employeesSortBy: string
+}
+
 export const employeesApi = api.injectEndpoints({
     endpoints: (build) => ({
-        getEmployees: build.query<EmployeeType[], void>({
-            query: () => ({ url: 'employees/' }),
+        getEmployees: build.query<EmployeesResponse, EmployeesQuery>({
+            query: ({ searchValue, employeesSortBy }) => ({
+                url: `employees/?search=${searchValue}&ordering=${employeesSortBy}`,
+            }),
             providesTags: (result) =>
                 result
                     ? [
-                          ...result.map(
+                          ...result.employees.map(
                               ({ id }) => ({ type: 'Employees', id }) as const
                           ),
                           { type: 'Employees', id: 'LIST' },
