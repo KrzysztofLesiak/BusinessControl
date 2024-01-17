@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 
@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'employees',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -59,6 +60,11 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
 
 ROOT_URLCONF = 'server.urls'
 
@@ -86,14 +92,14 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DATABASE_NAME"),
-        'USER': os.environ.get("DATABASE_USER"),
-        'PASSWORD': os.environ.get("DATABASE_PASSWORD"),
-        'HOST': os.environ.get("DATABASE_HOST"),
-        'PORT': os.environ.get("DATABASE_PORT")
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': os.environ.get("DATABASE_NAME"),
+        # 'USER': os.environ.get("DATABASE_USER"),
+        # 'PASSWORD': os.environ.get("DATABASE_PASSWORD"),
+        # 'HOST': os.environ.get("DATABASE_HOST"),
+        # 'PORT': os.environ.get("DATABASE_PORT")
     }
 }
 
