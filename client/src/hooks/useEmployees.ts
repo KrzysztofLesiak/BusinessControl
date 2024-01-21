@@ -54,6 +54,7 @@ export const useEmployees = (): useEmployeesData => {
         city: '',
         postalCode: '',
         phoneNumber: '',
+        position: '',
         status: 'HI',
         salary: 0,
     } as EmployeeType)

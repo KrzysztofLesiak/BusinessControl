@@ -9,6 +9,7 @@ export type EmployeeType = {
     city: string
     postalCode: string
     phoneNumber: string
+    position: string
     status: string
     salary: number
 }

@@ -171,7 +171,7 @@ export const EmployeeTable = () => {
                                     {employee.lastName}
                                 </td>
                                 <td className="hidden p-3 sm:table-cell">
-                                    {/*employee.position*/}
+                                    {employee.position}
                                 </td>
                                 <td className="hidden p-3 text-center sm:table-cell">
                                     {employee.salary}

@@ -140,8 +140,8 @@ export const EmployeeForm = () => {
                     className="w-full rounded-lg border border-grey-light p-3 shadow-md outline-secondary-light"
                     name="position"
                     id="position"
-                    // value={inputValue}
-                    // onChange={handleInput}
+                    value={inputValue.position}
+                    onChange={handleInput}
                     disabled={!isEditable && !isOnAddPage}
                 />
             </label>
