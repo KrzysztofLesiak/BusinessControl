@@ -4,6 +4,7 @@ import Filter from '../../assets/filter-solid.svg?react'
 import { Modal } from './Modal'
 import { Employee } from './Employee'
 import { useEmployees } from '../../hooks/useEmployees'
+import { Pagination } from '../../components/Pagination'
 
 export const Employees = () => {
     const { id } = useParams()
@@ -35,7 +36,9 @@ export const Employees = () => {
                     </Link>
                 </div>
                 <EmployeeTable />
+                <Pagination />
             </div>
+
             {id && (
                 <Modal>
                     <Employee />

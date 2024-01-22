@@ -11,7 +11,11 @@ import {
 } from '../redux/services/employees'
 import { useSearch } from './useSearch'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { updateEmployees, updateLength } from '../redux/slice/employeesSlice'
+import {
+    updateEmployees,
+    updateLength,
+    updateMaxPage,
+} from '../redux/slice/employeesSlice'
 import { RootState } from '../redux/store'
 
 type useEmployeesData = {
@@ -41,9 +45,10 @@ type useEmployeesData = {
 export const useEmployees = (): useEmployeesData => {
     const { id } = useParams()
     const isOnAddPage = isNaN(Number(id))
-    const searchValue = useAppSelector(
-        (state: RootState) => state.employees.searchValue
+    const { page, searchValue } = useAppSelector(
+        (state: RootState) => state.employees
     )
+
     const dispatch = useAppDispatch()
 
     const [inputValue, setInputValue] = useState<EmployeeType>({
@@ -71,7 +76,7 @@ export const useEmployees = (): useEmployeesData => {
         isSuccess: isEmployeesSuccess,
         isError: isEmployeesError,
         isFetching: isEmployeesFetching,
-    } = useGetEmployeesQuery({ searchValue, employeesSortBy })
+    } = useGetEmployeesQuery({ searchValue, employeesSortBy, page })
 
     const {
         data: employee,
@@ -190,6 +195,7 @@ export const useEmployees = (): useEmployeesData => {
         if (getEmployeesData) {
             dispatch(updateEmployees(getEmployeesData.employees))
             dispatch(updateLength(getEmployeesData.length))
+            dispatch(updateMaxPage(getEmployeesData.maxPage))
         }
     }, [dispatch, getEmployeesData])
 

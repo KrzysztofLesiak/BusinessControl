@@ -5,7 +5,6 @@ import { RootState } from '../../../redux/store'
 import { Loading } from '../../../components/Loading'
 
 import Chevron from '../../../assets/chevron-up-solid.svg?react'
-import { useEffect } from 'react'
 
 export const EmployeeTable = () => {
     const employees = useAppSelector(
@@ -22,10 +21,6 @@ export const EmployeeTable = () => {
     const navigate = useNavigate()
 
     const handleNavigate = (id: number) => navigate(`/employees/${id}`)
-
-    useEffect(() => {
-        console.log(employeesSortBy)
-    }, [employeesSortBy])
 
     return (
         <>

@@ -17,18 +17,20 @@ export type EmployeeType = {
 type EmployeesResponse = {
     employees: EmployeeType[]
     length: number
+    maxPage: number
 }
 
 type EmployeesQuery = {
     searchValue: string
     employeesSortBy: string
+    page: number
 }
 
 export const employeesApi = api.injectEndpoints({
     endpoints: (build) => ({
         getEmployees: build.query<EmployeesResponse, EmployeesQuery>({
-            query: ({ searchValue, employeesSortBy }) => ({
-                url: `employees/?search=${searchValue}&ordering=${employeesSortBy}`,
+            query: ({ searchValue, employeesSortBy, page }) => ({
+                url: `employees/?search=${searchValue}&page=${page}&ordering=${employeesSortBy}`,
             }),
             providesTags: (result) =>
                 result
