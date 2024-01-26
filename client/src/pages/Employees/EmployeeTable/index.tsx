@@ -144,7 +144,7 @@ export const EmployeeTable = () => {
                         <th className="p-3 sm:hidden">Details</th>
                     </tr>
                 </thead>
-                <tbody className="relative">
+                <tbody className="relative bg-primary-light">
                     {isEmployeesSuccess &&
                         employees.map((employee) => (
                             <tr
@@ -220,13 +220,13 @@ export const EmployeeTable = () => {
                 </tbody>
             </table>
             {employees.length === 0 && isEmployeesSuccess && (
-                <div className="w-full rounded-b-xl bg-white p-4 text-center">
+                <div className="w-full rounded-b-xl  bg-primary-light p-4 text-center">
                     No employees
                 </div>
             )}
 
             {isEmployeesLoading && (
-                <div className="w-full rounded-b-xl bg-white">
+                <div className="w-full rounded-b-xl  bg-primary-light">
                     <Loading />
                 </div>
             )}

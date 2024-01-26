@@ -16,63 +16,72 @@ export const Navigation = () => {
     }
 
     return (
-        <nav
-            className={`fixed left-0 top-0 z-40 mx-auto h-screen w-16 -translate-x-full bg-secondary-light bg-gradient-to-b from-secondary-light from-30% to-blue3-light py-8 text-white transition-all sm:-translate-x-0 lg:w-64 lg:px-8 ${
-                isVisible ? 'w-64 translate-x-0 px-8' : ''
-            }`}
-            aria-label="Sidebar"
-        >
-            <div className="h-full overflow-auto">
-                <div className="mb-16 mt-6 flex items-center justify-center">
-                    <Logo className="inline w-6 text-white lg:mr-2" />
-                    <span className="hidden lg:inline">Business Control</span>
+        <>
+            <nav
+                className={`fixed left-0 top-0 z-40 mx-auto h-screen w-16 -translate-x-full bg-secondary-light bg-gradient-to-b from-secondary-light from-30% to-blue3-light py-8 text-white transition-all sm:-translate-x-0 lg:w-64 lg:px-8 ${
+                    isVisible ? 'w-72 translate-x-0 pl-8 pr-12' : ''
+                }`}
+                aria-label="Sidebar"
+            >
+                <div className="h-full overflow-auto">
+                    <div className="mb-16 mt-6 flex items-center justify-center">
+                        <Logo className="inline w-6 text-white lg:mr-2" />
+                        <span className="hidden lg:inline">
+                            Business Control
+                        </span>
+                    </div>
+                    <Arrow
+                        className={`absolute -right-8 top-12 -z-10 h-auto w-10 cursor-pointer bg-secondary-light p-3 sm:-right-6 lg:hidden ${
+                            isVisible
+                                ? 'rotate-180 rounded-l-full'
+                                : 'rotate-0 rounded-r-full'
+                        }`}
+                        onClick={changeVisibility}
+                        data-testid="arrow"
+                    />
+                    <ul
+                        className={`mx-auto w-fit p-2 lg:block lg:w-full ${
+                            isVisible ? 'w-full' : ''
+                        }`}
+                    >
+                        <li>
+                            <NavLink
+                                to="/"
+                                className={`navlink ${
+                                    isVisible ? 'w-full' : ''
+                                } `}
+                            >
+                                <House className="m-1 h-5 w-5" />
+                                <span
+                                    className={` ${
+                                        isVisible ? ' inline' : 'hidden'
+                                    } ml-4 lg:inline`}
+                                >
+                                    Home
+                                </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/employees"
+                                className={`navlink ${
+                                    isVisible ? 'w-full' : ''
+                                } `}
+                            >
+                                <User className="m-1 h-5 w-5" />
+                                <span
+                                    className={` ${
+                                        isVisible ? 'ml-4 inline' : 'hidden'
+                                    } ml-4 lg:inline`}
+                                >
+                                    Employees
+                                </span>
+                            </NavLink>
+                        </li>
+                    </ul>
                 </div>
-                <Arrow
-                    className={`absolute -right-8 top-12 -z-10 h-auto w-10 cursor-pointer bg-secondary-light p-3 sm:-right-6 lg:hidden ${
-                        isVisible
-                            ? 'rotate-180 rounded-l-full'
-                            : 'rotate-0 rounded-r-full'
-                    }`}
-                    onClick={changeVisibility}
-                    data-testid="arrow"
-                />
-                <ul
-                    className={`mx-auto w-fit p-2 lg:block lg:w-full ${
-                        isVisible ? 'w-full' : ''
-                    }`}
-                >
-                    <li>
-                        <NavLink
-                            to="/"
-                            className={`navlink ${isVisible ? 'w-full' : ''} `}
-                        >
-                            <House className="m-1 h-5 w-5" />
-                            <span
-                                className={` ${
-                                    isVisible ? ' inline' : 'hidden'
-                                } ml-4 lg:inline`}
-                            >
-                                Home
-                            </span>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/employees"
-                            className={`navlink ${isVisible ? 'w-full' : ''} `}
-                        >
-                            <User className="m-1 h-5 w-5" />
-                            <span
-                                className={` ${
-                                    isVisible ? 'ml-4 inline' : 'hidden'
-                                } ml-4 lg:inline`}
-                            >
-                                Employees
-                            </span>
-                        </NavLink>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                <div className="absolute right-0 top-0 hidden h-screen w-6 bg-white transition-all sm:rounded-l-3xl lg:block "></div>
+            </nav>
+        </>
     )
 }
