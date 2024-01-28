@@ -35,6 +35,7 @@ BusinessControl is business software that integrates different areas of a compan
 <div style="display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr)">
   <img src="media/home.png" alt="" >
   <img src="media/navigation.png" alt="">
+  <img style="grid-area: 2/1/2/3;" src="media/login.png" alt="">
 </div>
 
 ## Roadmap
