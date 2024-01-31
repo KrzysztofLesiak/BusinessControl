@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
-
 import Logo from '../../assets/logo.svg?react'
 import House from '../../assets/house-solid.svg?react'
 import User from '../../assets/user-solid.svg?react'
@@ -80,7 +79,6 @@ export const Navigation = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="absolute right-0 top-0 hidden h-screen w-6 bg-white transition-all sm:rounded-l-3xl lg:block "></div>
             </nav>
         </>
     )

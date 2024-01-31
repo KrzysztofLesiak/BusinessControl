@@ -1,11 +1,14 @@
-import { Link } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 
 import Arrow from '../../assets/arrow-right-solid.svg?react'
-import { Clock } from './Clock'
+
 import { useAppSelector } from '../../redux/hooks'
 import { RootState } from '../../redux/store'
 import { useEmployees } from '../../hooks/useEmployees'
 import { Loading } from '../../components/Loading'
+
+import { Employees } from '../Employees'
+import { NewEmployee } from '../Employees/NewEmployee'
 
 export const Home = () => {
     const length = useAppSelector((state: RootState) => state.employees.length)
@@ -14,7 +17,6 @@ export const Home = () => {
 
     return (
         <section className="h-full overflow-y-auto p-8">
-            <Clock />
             <div className="mx-auto grid h-full grid-cols-1 grid-rows-[300px_minmax(900px,_1fr)_100px] gap-8 p-4 md:grid-cols-2 xl:grid-cols-3 ">
                 <div className="mx-auto flex h-full w-full min-w-[240px] flex-col justify-between rounded-3xl bg-white p-6 shadow-xl">
                     <h2 className="mb-10 flex items-center justify-between text-2xl font-bold text-blue3-dark">
@@ -55,6 +57,11 @@ export const Home = () => {
                     </div>
                 </div>
             </div>
+            <Routes>
+                <Route path="/employees" element={<Employees />} />
+                <Route path="/employees/new" element={<NewEmployee />} />
+                <Route path="/employees/:id" element={<Employees />} />
+            </Routes>
         </section>
     )
 }
