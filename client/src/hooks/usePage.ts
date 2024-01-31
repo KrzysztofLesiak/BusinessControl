@@ -32,9 +32,10 @@ export const usePage = (): UsePageProps => {
             : queryParams.delete('page')
 
         navigate(`${location.pathname}?${queryParams}`)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
 
         if (page > maxPage) dispatch(updatePage(1))
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
 
     useEffect(() => {

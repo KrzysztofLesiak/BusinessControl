@@ -12,7 +12,7 @@ export const Employees = () => {
     const { searchInput, handleSearch } = useEmployees()
 
     return (
-        <section className="flex h-full w-full flex-col p-8">
+        <>
             <div className="m-auto w-full">
                 <div className=" mb-4 flex flex-col-reverse justify-between sm:flex-row">
                     <div className="relative flex  w-full rounded-xl shadow-md sm:m-0 sm:w-fit">
@@ -44,6 +44,6 @@ export const Employees = () => {
                     <Employee />
                 </Modal>
             )}
-        </section>
+        </>
     )
 }

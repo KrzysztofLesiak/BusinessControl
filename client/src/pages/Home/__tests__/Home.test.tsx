@@ -2,7 +2,7 @@ import '@testing-library/jest-dom'
 import { act, cleanup, render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import { Home } from '..'
-import { Clock } from '../Clock'
+import { Clock } from '../../../components/Clock'
 
 jest.useFakeTimers()
 

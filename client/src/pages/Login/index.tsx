@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
 import Logo from '../../assets/logo.svg?react'
 import Laptop from '../../assets/_c0553f35-bf46-47e6-b2b9-88890900c6f8.jpg'
+import { useUsers } from '../../hooks/useUsers'
 
 export const Login = () => {
+    const { inputValue, handleLoginInput, handleLogin } = useUsers()
+
     return (
         <div className="flex min-h-screen w-full justify-end">
             <div
@@ -15,7 +18,10 @@ export const Login = () => {
             >
                 <div className="absolute -left-6 bottom-0 top-0 hidden w-6 bg-white sm:rounded-l-3xl lg:block "></div>
                 <Logo className="mx-auto w-24 py-24 pr-6 text-secondary-light lg:w-20" />
-                <form className="m-auto flex w-4/5 flex-col rounded-2xl  px-2 py-16">
+                <form
+                    className="m-auto flex w-4/5 flex-col rounded-2xl  px-2 py-16"
+                    onSubmit={handleLogin}
+                >
                     <h1 className="text-xl">Sign in to Business Control</h1>
                     <p>
                         New user?{' '}
@@ -36,8 +42,8 @@ export const Login = () => {
                             autoComplete="email"
                             id="email"
                             name="email"
-                            // value={}
-                            // onChange={}
+                            value={inputValue.email}
+                            onChange={handleLoginInput}
                         />
                     </label>
                     <label htmlFor="firstName" className="relative my-8">
@@ -50,8 +56,8 @@ export const Login = () => {
                             id="password"
                             name="password"
                             autoComplete="password"
-                            // value={}
-                            // onChange={}
+                            value={inputValue.password}
+                            onChange={handleLoginInput}
                         />
                     </label>
                     <button className="rounded-lg bg-secondary-light p-3 text-white">

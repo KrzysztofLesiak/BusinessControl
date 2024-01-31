@@ -16,8 +16,8 @@ export const Home = () => {
     const { isEmployeesLoading, isEmployeesSuccess } = useEmployees()
 
     return (
-        <section className="h-full overflow-y-auto p-8">
-            <div className="mx-auto grid h-full grid-cols-1 grid-rows-[300px_minmax(900px,_1fr)_100px] gap-8 p-4 md:grid-cols-2 xl:grid-cols-3 ">
+        <section>
+            <div className="mx-auto grid h-full grid-cols-1 grid-rows-[300px] gap-8 pb-6 md:grid-cols-2 xl:grid-cols-3 ">
                 <div className="mx-auto flex h-full w-full min-w-[240px] flex-col justify-between rounded-3xl bg-white p-6 shadow-xl">
                     <h2 className="mb-10 flex items-center justify-between text-2xl font-bold text-blue3-dark">
                         Employees
