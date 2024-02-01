@@ -1,40 +1,42 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
+type UserType = {
+    token_type: string
+    exp: number
+    iat: number
+    jti: string
+    user_id: number
+    first_name: string
+}
+
 type UsersState = {
-    authTokens: {
-        access: string
-        refresh: string
-    }
-    username: string
+    user: UserType
 }
 
 const initialState: UsersState = {
-    authTokens: {
-        access: '',
-        refresh: '',
+    user: {
+        token_type: '',
+        exp: 0,
+        iat: 0,
+        jti: '',
+        user_id: 0,
+        first_name: '',
     },
-    username: '',
 }
 
 export const usersSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
-        setTokens: (
-            state,
-            action: PayloadAction<{
-                access: string
-                refresh: string
-            }>
-        ) => {
-            state.authTokens = action.payload
+        loginUser: (state, action: PayloadAction<UserType>) => {
+            state.user = action.payload
         },
-        setUsername: (state, action: PayloadAction<string>) => {
-            state.username = action.payload
+        logoutUser: (state) => {
+            state.user = initialState.user
         },
     },
 })
 
-export const { setTokens } = usersSlice.actions
+export const { loginUser, logoutUser } = usersSlice.actions
 
 export default usersSlice.reducer

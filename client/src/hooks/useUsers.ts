@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { setTokens } from '../redux/slice/usersSlice'
+import { loginUser, logoutUser } from '../redux/slice/usersSlice'
+import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 
 type UseUsersData = {
@@ -10,6 +11,7 @@ type UseUsersData = {
     }
     handleLoginInput: (e: ChangeEvent<HTMLInputElement>) => void
     handleLogin: (e: FormEvent<HTMLFormElement>) => void
+    loginNavigation: () => void
 }
 
 export const useUsers = (): UseUsersData => {
@@ -18,7 +20,7 @@ export const useUsers = (): UseUsersData => {
         password: '',
     })
 
-    const authTokens = useAppSelector((state) => state.users.authTokens)
+    const user = useAppSelector((state) => state.users.user)
     const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
@@ -47,17 +49,27 @@ export const useUsers = (): UseUsersData => {
                 throw new Error(`${response.status} - ${response.statusText}`)
 
             const data = await response.json()
-            dispatch(setTokens(data))
-            console.log(authTokens)
+
+            dispatch(loginUser(jwtDecode(data.access)))
             navigate('/')
         } catch (error) {
             console.log(error)
         }
     }
 
+    const handleLogout = () => {
+        dispatch(logoutUser())
+        navigate('/login')
+    }
+
+    const loginNavigation = () => {
+        user.user_id ? handleLogout() : navigate('/login')
+    }
+
     return {
         inputValue,
         handleLoginInput,
         handleLogin,
+        loginNavigation,
     }
 }
