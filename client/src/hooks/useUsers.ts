@@ -3,14 +3,21 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { loginUser, logoutUser } from '../redux/slice/usersSlice'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
+import { NewUserType, useRegisterUserMutation } from '../redux/services/users'
 
 type UseUsersData = {
     inputValue: {
         email: string
         password: string
     }
+    registerInputValue: NewUserType
+    isRegisterSuccess: boolean
+    isRegisterLoading: boolean
+    isRegisterError: boolean
     handleAuthInput: (e: ChangeEvent<HTMLInputElement>) => void
+    handleRegisterInput: (e: ChangeEvent<HTMLInputElement>) => void
     handleLogin: (e: FormEvent<HTMLFormElement>) => void
+    handleRegister: (e: FormEvent<HTMLFormElement>) => void
     loginNavigation: () => void
     checkAuth: () => void
 }
@@ -20,6 +27,22 @@ export const useUsers = (): UseUsersData => {
         email: 'test@test.pl',
         password: 'Lodoweczka0211',
     })
+    const [registerInputValue, setRegisterInputValue] = useState({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        firstName: '',
+        lastName: '',
+    })
+
+    const [
+        registerUser,
+        {
+            isSuccess: isRegisterSuccess,
+            isLoading: isRegisterLoading,
+            isError: isRegisterError,
+        },
+    ] = useRegisterUserMutation()
 
     const { user } = useAppSelector((state) => state.users)
     const dispatch = useAppDispatch()
@@ -29,6 +52,11 @@ export const useUsers = (): UseUsersData => {
     const handleAuthInput = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setInputValue((prev) => ({ ...prev, [name]: value }))
+    }
+
+    const handleRegisterInput = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
+        setRegisterInputValue((prev) => ({ ...prev, [name]: value }))
     }
 
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
@@ -65,6 +93,13 @@ export const useUsers = (): UseUsersData => {
         navigate('/login')
     }
 
+    const handleRegister = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (isRegisterLoading || isRegisterSuccess) return
+
+        registerUser(registerInputValue)
+    }
+
     const loginNavigation = () => {
         user.user_id ? handleLogout() : navigate('/login')
     }
@@ -77,6 +112,12 @@ export const useUsers = (): UseUsersData => {
 
     return {
         inputValue,
+        registerInputValue,
+        isRegisterSuccess,
+        isRegisterLoading,
+        isRegisterError,
+        handleRegisterInput,
+        handleRegister,
         handleAuthInput,
         handleLogin,
         loginNavigation,
