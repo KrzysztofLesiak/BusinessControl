@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { useDebounce } from './useDebounce'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../redux/hooks'
-import { updateSearchValue } from '../redux/slice/employeesSlice'
+import { updatePage, updateSearchValue } from '../redux/slice/employeesSlice'
 
 type UseSearchProps = {
     searchInput: string
@@ -31,6 +31,7 @@ export const useSearch = (): UseSearchProps => {
             : queryParams.delete('q')
 
         dispatch(updateSearchValue(searchValue))
+        dispatch(updatePage(1))
         navigate(`${location.pathname}?${queryParams}`)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchValue])

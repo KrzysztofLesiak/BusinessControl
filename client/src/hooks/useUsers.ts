@@ -9,23 +9,24 @@ type UseUsersData = {
         email: string
         password: string
     }
-    handleLoginInput: (e: ChangeEvent<HTMLInputElement>) => void
+    handleAuthInput: (e: ChangeEvent<HTMLInputElement>) => void
     handleLogin: (e: FormEvent<HTMLFormElement>) => void
     loginNavigation: () => void
+    checkAuth: () => void
 }
 
 export const useUsers = (): UseUsersData => {
     const [inputValue, setInputValue] = useState({
-        email: '',
-        password: '',
+        email: 'test@test.pl',
+        password: 'Lodoweczka0211',
     })
 
-    const user = useAppSelector((state) => state.users.user)
+    const { user } = useAppSelector((state) => state.users)
     const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
 
-    const handleLoginInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleAuthInput = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setInputValue((prev) => ({ ...prev, [name]: value }))
     }
@@ -51,6 +52,7 @@ export const useUsers = (): UseUsersData => {
             const data = await response.json()
 
             dispatch(loginUser(jwtDecode(data.access)))
+            localStorage.setItem('authToken', data.access)
             navigate('/')
         } catch (error) {
             console.log(error)
@@ -59,6 +61,7 @@ export const useUsers = (): UseUsersData => {
 
     const handleLogout = () => {
         dispatch(logoutUser())
+        localStorage.removeItem('authToken')
         navigate('/login')
     }
 
@@ -66,10 +69,17 @@ export const useUsers = (): UseUsersData => {
         user.user_id ? handleLogout() : navigate('/login')
     }
 
+    const checkAuth = () => {
+        const token = localStorage.getItem('authToken')
+
+        token ? dispatch(loginUser(jwtDecode(token))) : navigate('/login')
+    }
+
     return {
         inputValue,
-        handleLoginInput,
+        handleAuthInput,
         handleLogin,
         loginNavigation,
+        checkAuth,
     }
 }

@@ -4,44 +4,46 @@ import { Employees } from './pages/Employees'
 import { NewEmployee } from './pages/Employees/NewEmployee'
 import { Login } from './pages/Login'
 import './App.scss'
-import { AppWrapper } from './components/AppWrapper'
+import { AppRoute } from './components/AppRoute'
+import { Register } from './pages/Register'
 
 function App() {
     return (
         <Routes>
             <Route
-                path="/"
+                path="/*"
                 element={
-                    <AppWrapper>
+                    <AppRoute>
                         <Home />
-                    </AppWrapper>
+                    </AppRoute>
                 }
             />
-            <Route path="/login" element={<Login />} />
             <Route
                 path="/employees"
                 element={
-                    <AppWrapper>
+                    <AppRoute>
                         <Employees />
-                    </AppWrapper>
+                    </AppRoute>
                 }
             />
             <Route
                 path="/employees/new"
                 element={
-                    <AppWrapper>
+                    <AppRoute>
                         <NewEmployee />
-                    </AppWrapper>
+                    </AppRoute>
                 }
             />
             <Route
                 path="/employees/:id"
                 element={
-                    <AppWrapper>
+                    <AppRoute>
                         <Employees />
-                    </AppWrapper>
+                    </AppRoute>
                 }
             />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
         </Routes>
     )
 }
