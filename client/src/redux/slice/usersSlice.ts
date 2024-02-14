@@ -13,6 +13,7 @@ type UsersState = {
     isAuthenticated: boolean
     isLoading: boolean
     user: UserType
+    token: string
 }
 
 const initialState: UsersState = {
@@ -26,6 +27,7 @@ const initialState: UsersState = {
         user_id: 0,
         first_name: '',
     },
+    token: '',
 }
 
 export const usersSlice = createSlice({
@@ -43,9 +45,13 @@ export const usersSlice = createSlice({
         setIsLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload
         },
+        setToken: (state, action: PayloadAction<string>) => {
+            state.token = action.payload
+        },
     },
 })
 
-export const { loginUser, logoutUser, setIsLoading } = usersSlice.actions
+export const { loginUser, logoutUser, setIsLoading, setToken } =
+    usersSlice.actions
 
 export default usersSlice.reducer

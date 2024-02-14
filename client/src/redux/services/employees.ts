@@ -24,13 +24,17 @@ type EmployeesQuery = {
     searchValue: string
     employeesSortBy: string
     page: number
+    token: string
 }
 
 export const employeesApi = api.injectEndpoints({
     endpoints: (build) => ({
         getEmployees: build.query<EmployeesResponse, EmployeesQuery>({
-            query: ({ searchValue, employeesSortBy, page }) => ({
+            query: ({ searchValue, employeesSortBy, page, token }) => ({
                 url: `employees/?search=${searchValue}&page=${page}&ordering=${employeesSortBy}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             }),
             providesTags: (result) =>
                 result
@@ -42,35 +46,57 @@ export const employeesApi = api.injectEndpoints({
                       ]
                     : [{ type: 'Employees', id: 'LIST' }],
         }),
-        getEmployee: build.query<EmployeeType, number>({
-            query: (id) => ({ url: `employees/${id}/` }),
-            providesTags: (_result, _error, id) => [{ type: 'Employees', id }],
+        getEmployee: build.query<EmployeeType, { id: number; token: string }>({
+            query: ({ id, token }) => ({
+                url: `employees/${id}/`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }),
+            providesTags: (_result, _error, { id }) => [
+                { type: 'Employees', id },
+            ],
         }),
-        addEmployee: build.mutation<EmployeeType, Partial<EmployeeType>>({
-            query: (body) => ({
+        addEmployee: build.mutation<
+            EmployeeType,
+            { body: EmployeeType; token: string }
+        >({
+            query: ({ body, token }) => ({
                 url: 'employees/',
                 method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
                 body,
             }),
             invalidatesTags: ['Employees'],
         }),
-        editEmployee: build.mutation<EmployeeType, Partial<EmployeeType>>({
-            query: (body) => ({
+        editEmployee: build.mutation<
+            EmployeeType,
+            { body: EmployeeType; token: string }
+        >({
+            query: ({ body, token }) => ({
                 url: `employees/${body.id}/`,
                 method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
                 body,
             }),
-            invalidatesTags: (_result, _error, { id }) => [
-                { type: 'Employees', id },
+            invalidatesTags: (_result, _error, { body }) => [
+                { type: 'Employees', id: body.id },
             ],
         }),
         deleteEmployee: build.mutation<
             { success: boolean; id: number },
-            number
+            { id: number; token: string }
         >({
-            query: (id) => ({
+            query: ({ id, token }) => ({
                 url: `employees/${id}/`,
                 method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             }),
             invalidatesTags: ['Employees'],
         }),

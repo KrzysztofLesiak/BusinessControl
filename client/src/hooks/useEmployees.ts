@@ -48,6 +48,7 @@ export const useEmployees = (): useEmployeesData => {
     const { page, searchValue } = useAppSelector(
         (state: RootState) => state.employees
     )
+    const { token } = useAppSelector((state) => state.users)
 
     const dispatch = useAppDispatch()
 
@@ -76,7 +77,7 @@ export const useEmployees = (): useEmployeesData => {
         isSuccess: isEmployeesSuccess,
         isError: isEmployeesError,
         isFetching: isEmployeesFetching,
-    } = useGetEmployeesQuery({ searchValue, employeesSortBy, page })
+    } = useGetEmployeesQuery({ searchValue, employeesSortBy, page, token })
 
     const {
         data: employee,
@@ -84,7 +85,7 @@ export const useEmployees = (): useEmployeesData => {
         isSuccess: isEmployeeSuccess,
         isError: isEmployeeError,
         refetch: refetchGetEmployee,
-    } = useGetEmployeeQuery(Number(id), { skip: isOnAddPage })
+    } = useGetEmployeeQuery({ id: Number(id), token }, { skip: isOnAddPage })
 
     const [editEmployee, { isSuccess: isEditSuccess }] =
         useEditEmployeeMutation()
@@ -100,11 +101,13 @@ export const useEmployees = (): useEmployeesData => {
     const handleEmployeeForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        isOnAddPage ? addEmployee(inputValue) : editEmployee(inputValue)
+        isOnAddPage
+            ? addEmployee({ body: inputValue, token })
+            : editEmployee({ body: inputValue, token })
     }
 
     const handleEmployeeDelete = () => {
-        deleteEmployee(Number(id))
+        deleteEmployee({ id: Number(id), token })
     }
 
     const navigate = useNavigate()

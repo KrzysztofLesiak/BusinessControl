@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { loginUser, logoutUser } from '../redux/slice/usersSlice'
+import { loginUser, logoutUser, setToken } from '../redux/slice/usersSlice'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 import { NewUserType, useRegisterUserMutation } from '../redux/services/users'
@@ -80,6 +80,7 @@ export const useUsers = (): UseUsersData => {
             const data = await response.json()
 
             dispatch(loginUser(jwtDecode(data.access)))
+            dispatch(setToken(data.access))
             localStorage.setItem('authToken', data.access)
             navigate('/')
         } catch (error) {
@@ -107,7 +108,12 @@ export const useUsers = (): UseUsersData => {
     const checkAuth = () => {
         const token = localStorage.getItem('authToken')
 
-        token ? dispatch(loginUser(jwtDecode(token))) : navigate('/login')
+        if (token) {
+            dispatch(loginUser(jwtDecode(token)))
+            dispatch(setToken(token))
+        } else {
+            navigate('/login')
+        }
     }
 
     return {
