@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import viewsets, filters
 from django.db.models import Q
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Employee
 from .serializers import EmployeeSerializer
@@ -11,6 +12,7 @@ from .serializers import EmployeeSerializer
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    permission_classes = [IsAuthenticated]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['first_name', 'last_name']
     ordering_fields = '__all__'
