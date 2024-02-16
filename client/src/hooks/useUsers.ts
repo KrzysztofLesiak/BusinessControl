@@ -14,6 +14,13 @@ type UseUsersData = {
     isRegisterSuccess: boolean
     isRegisterLoading: boolean
     isRegisterError: boolean
+    passwordValidation: {
+        length: boolean
+        uppercase: boolean
+        lowercase: boolean
+        digit: boolean
+        symbols: boolean
+    }
     handleAuthInput: (e: ChangeEvent<HTMLInputElement>) => void
     handleRegisterInput: (e: ChangeEvent<HTMLInputElement>) => void
     handleLogin: (e: FormEvent<HTMLFormElement>) => void
@@ -34,6 +41,13 @@ export const useUsers = (): UseUsersData => {
         firstName: '',
         lastName: '',
     })
+    const [passwordValidation, setPasswordValidation] = useState({
+        length: false,
+        uppercase: false,
+        lowercase: false,
+        digit: false,
+        symbols: false,
+    })
 
     const [
         registerUser,
@@ -48,6 +62,7 @@ export const useUsers = (): UseUsersData => {
     const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
 
     const handleAuthInput = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -56,6 +71,45 @@ export const useUsers = (): UseUsersData => {
 
     const handleRegisterInput = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
+
+        if (name === 'password') {
+            value.match(/^(?=.*\d)/)
+                ? setPasswordValidation((prev) => ({ ...prev, digit: true }))
+                : setPasswordValidation((prev) => ({ ...prev, digit: false }))
+            value.match(/^(?=.*[a-z])/)
+                ? setPasswordValidation((prev) => ({
+                      ...prev,
+                      lowercase: true,
+                  }))
+                : setPasswordValidation((prev) => ({
+                      ...prev,
+                      lowercase: false,
+                  }))
+            value.match(/^(?=.*[A-Z])/)
+                ? setPasswordValidation((prev) => ({
+                      ...prev,
+                      uppercase: true,
+                  }))
+                : setPasswordValidation((prev) => ({
+                      ...prev,
+                      uppercase: false,
+                  }))
+            value.length > 5
+                ? setPasswordValidation((prev) => ({
+                      ...prev,
+                      length: true,
+                  }))
+                : setPasswordValidation((prev) => ({
+                      ...prev,
+                      length: false,
+                  }))
+
+            return setRegisterInputValue((prev) => ({
+                ...prev,
+                password: value.trim(),
+            }))
+        }
+
         setRegisterInputValue((prev) => ({ ...prev, [name]: value }))
     }
 
@@ -96,7 +150,12 @@ export const useUsers = (): UseUsersData => {
 
     const handleRegister = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (isRegisterLoading || isRegisterSuccess) return
+        if (
+            isRegisterLoading ||
+            isRegisterSuccess ||
+            !registerInputValue.password.match(passwordRegex)
+        )
+            return
 
         registerUser(registerInputValue)
     }
@@ -122,6 +181,7 @@ export const useUsers = (): UseUsersData => {
         isRegisterSuccess,
         isRegisterLoading,
         isRegisterError,
+        passwordValidation,
         handleRegisterInput,
         handleRegister,
         handleAuthInput,

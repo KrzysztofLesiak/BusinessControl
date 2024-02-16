@@ -17,7 +17,7 @@ export const AuthBackground = ({ children }: AuthBackgroundProps) => {
      md:pr-6 lg:w-2/5"
             >
                 <div className="absolute bottom-0 top-0 hidden w-6 bg-white sm:rounded-l-3xl md:-left-6 md:block"></div>
-                <Logo className="mx-auto w-16 pb-24  text-secondary-light lg:w-20" />
+                <Logo className="mx-auto w-16 pb-12  text-secondary-light lg:w-20" />
                 {children}
             </div>
         </div>

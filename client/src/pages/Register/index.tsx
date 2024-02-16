@@ -2,9 +2,16 @@ import { Link } from 'react-router-dom'
 import { AuthBackground } from '../../components/AuthBackground'
 import { useUsers } from '../../hooks/useUsers'
 
+import Mark from '../../assets/xmark-solid.svg?react'
+import Check from '../../assets/check-solid.svg?react'
+
 export const Register = () => {
-    const { registerInputValue, handleRegisterInput, handleRegister } =
-        useUsers()
+    const {
+        registerInputValue,
+        passwordValidation,
+        handleRegisterInput,
+        handleRegister,
+    } = useUsers()
 
     return (
         <AuthBackground>
@@ -77,6 +84,68 @@ export const Register = () => {
                         value={registerInputValue.password}
                         onChange={handleRegisterInput}
                     />
+                    <div className="ml-4 mt-4">
+                        <p className="text-sm">Password must:</p>
+                        <ul className="text-xs">
+                            <li
+                                className={`flex ${
+                                    passwordValidation.length
+                                        ? 'text-success'
+                                        : ''
+                                }`}
+                            >
+                                {passwordValidation.length ? (
+                                    <Check className="mr-2 w-2" />
+                                ) : (
+                                    <Mark className="mr-2 w-2" />
+                                )}
+
+                                <p>be at least 6 characters</p>
+                            </li>
+                            <li
+                                className={`flex ${
+                                    passwordValidation.digit
+                                        ? 'text-success'
+                                        : ''
+                                }`}
+                            >
+                                {passwordValidation.digit ? (
+                                    <Check className="mr-2 w-2" />
+                                ) : (
+                                    <Mark className="mr-2 w-2" />
+                                )}
+                                <p>contain at least one digit</p>
+                            </li>
+                            <li
+                                className={`flex ${
+                                    passwordValidation.lowercase
+                                        ? 'text-success'
+                                        : ''
+                                }`}
+                            >
+                                {passwordValidation.lowercase ? (
+                                    <Check className="mr-2 w-2" />
+                                ) : (
+                                    <Mark className="mr-2 w-2" />
+                                )}
+                                <p>contain at least one lowercase letter</p>
+                            </li>
+                            <li
+                                className={`flex ${
+                                    passwordValidation.uppercase
+                                        ? 'text-success'
+                                        : ''
+                                }`}
+                            >
+                                {passwordValidation.uppercase ? (
+                                    <Check className="mr-2 w-2" />
+                                ) : (
+                                    <Mark className="mr-2 w-2" />
+                                )}
+                                <p>contain at least one uppercase letter</p>
+                            </li>
+                        </ul>
+                    </div>
                 </label>
                 <label htmlFor="confirmPassword" className="relative my-4">
                     <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-blue3-light">
