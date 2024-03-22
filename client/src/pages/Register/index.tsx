@@ -4,13 +4,18 @@ import { useUsers } from '../../hooks/useUsers'
 
 import Mark from '../../assets/xmark-solid.svg?react'
 import Check from '../../assets/check-solid.svg?react'
+import Loader from '../../assets/spinner-solid.svg?react'
 
 export const Register = () => {
     const {
         registerInputValue,
         passwordValidation,
+        isRegisterError,
+        isRegisterLoading,
+        registerValidation,
         handleRegisterInput,
         handleRegister,
+        setRegisterValidation,
     } = useUsers()
 
     return (
@@ -26,13 +31,52 @@ export const Register = () => {
                         Login
                     </Link>
                 </p>
-                <div className="mb-4 grid grid-cols-2 gap-4">
+                {isRegisterError ||
+                    (!Object.values(registerValidation).every(
+                        (value) => value === ''
+                    ) &&
+                        Object.keys(registerValidation).map((key) => {
+                            if (
+                                registerValidation[
+                                    key as keyof typeof registerValidation
+                                ]
+                            )
+                                return (
+                                    <div
+                                        className={`mt-2 flex items-center justify-between rounded-md border border-error border-opacity-40 bg-error bg-opacity-10 p-2 transition-all`}
+                                    >
+                                        <p className="text-xs text-error">
+                                            {
+                                                registerValidation[
+                                                    key as keyof typeof registerValidation
+                                                ]
+                                            }
+                                        </p>
+                                        <Mark
+                                            className="h-6 w-6 rounded-full p-1 text-error hover:bg-error hover:bg-opacity-30"
+                                            onClick={() =>
+                                                setRegisterValidation(
+                                                    (prev) => ({
+                                                        ...prev,
+                                                        [key]: '',
+                                                    })
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                )
+                        }))}
+                <div className="mb-4 grid grid-cols-2 gap-4 transition-all">
                     <label htmlFor="firstName" className="relative mt-8">
                         <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-blue3-light">
                             First Name
                         </p>
                         <input
-                            className="w-full rounded-lg border border-grey-light p-3 shadow-md outline-secondary-light"
+                            className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light ${
+                                registerValidation.firstName
+                                    ? 'border-error'
+                                    : 'border-grey-light'
+                            }`}
                             type="text"
                             autoComplete="firstName"
                             id="firstName"
@@ -46,7 +90,11 @@ export const Register = () => {
                             Last Name
                         </p>
                         <input
-                            className="w-full rounded-lg border border-grey-light p-3 shadow-md outline-secondary-light"
+                            className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light ${
+                                registerValidation.lastName
+                                    ? 'border-error'
+                                    : 'border-grey-light'
+                            }`}
                             type="text"
                             autoComplete="lastName"
                             id="lastName"
@@ -62,7 +110,11 @@ export const Register = () => {
                         Email address
                     </p>
                     <input
-                        className="w-full rounded-lg border border-grey-light p-3 shadow-md outline-secondary-light"
+                        className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light ${
+                            registerValidation.email
+                                ? 'border-error'
+                                : 'border-grey-light'
+                        }`}
                         type="email"
                         autoComplete="email"
                         id="email"
@@ -76,7 +128,11 @@ export const Register = () => {
                         Password
                     </p>
                     <input
-                        className="w-full rounded-lg border border-grey-light p-3 shadow-md outline-secondary-light"
+                        className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light ${
+                            registerValidation.password
+                                ? 'border-error'
+                                : 'border-grey-light'
+                        }`}
                         type="password"
                         id="password"
                         name="password"
@@ -152,7 +208,13 @@ export const Register = () => {
                         Confirm Password
                     </p>
                     <input
-                        className="w-full rounded-lg border border-grey-light p-3 shadow-md outline-secondary-light"
+                        className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light
+                            ${
+                                registerValidation.confirmPassword
+                                    ? 'border-error'
+                                    : 'border-grey-light'
+                            }
+                        `}
                         type="password"
                         id="confirmPassword"
                         name="confirmPassword"
@@ -163,9 +225,13 @@ export const Register = () => {
                 </label>
                 <button
                     type="submit"
-                    className="my-4 rounded-lg bg-secondary-light p-3 text-white"
+                    className="my-4 rounded-lg bg-secondary-light p-3 text-white shadow-md"
                 >
-                    Create Account
+                    {isRegisterLoading ? (
+                        <Loader className="m-auto h-6 w-6 animate-spin bg-opacity-0 bg-none" />
+                    ) : (
+                        'Create Account'
+                    )}
                 </button>
             </form>
         </AuthBackground>

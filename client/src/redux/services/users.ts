@@ -16,6 +16,7 @@ export const usersApi = api.injectEndpoints({
                 method: 'POST',
                 body,
             }),
+            transformErrorResponse: (response) => response.data,
         }),
     }),
 })

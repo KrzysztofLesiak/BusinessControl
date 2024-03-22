@@ -9,7 +9,7 @@ export const AuthBackground = ({ children }: AuthBackgroundProps) => {
     return (
         <div className="flex min-h-screen w-full justify-end">
             <div
-                className="min-h-screen w-full bg-cover bg-center bg-no-repeat"
+                className="fixed left-0 min-h-screen w-[calc(100%-420px)] bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${Laptop})` }}
             ></div>
             <div

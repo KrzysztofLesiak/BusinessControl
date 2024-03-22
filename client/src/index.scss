@@ -20,3 +20,8 @@
     box-sizing: border-box;
     font-family: 'Montserrat-Medium';
 }
+
+html {
+    overflow-y: scroll;
+    overflow-gutter: stable;
+}

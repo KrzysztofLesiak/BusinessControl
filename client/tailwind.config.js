@@ -10,7 +10,7 @@ export default {
             dark: '#000000',
             success: '#28a745',
             warning: '#ffc107',
-            error: '#dc3545',
+            error: '#c22f3d',
             primary: {
                 light: '#F0F3FA',
                 dark: '#032030',
