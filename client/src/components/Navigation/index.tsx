@@ -1,9 +1,11 @@
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
+
 import Logo from '../../assets/logo.svg?react'
 import House from '../../assets/house-solid.svg?react'
 import User from '../../assets/user-solid.svg?react'
 import Arrow from '../../assets/arrow-right-solid.svg?react'
+import SquarePoll from '../../assets/square-poll-vertical-solid.svg?react'
 
 import './Navigation.scss'
 
@@ -74,6 +76,23 @@ export const Navigation = () => {
                                     } ml-4 lg:inline`}
                                 >
                                     Employees
+                                </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/finance"
+                                className={`navlink ${
+                                    isVisible ? 'w-full' : ''
+                                } `}
+                            >
+                                <SquarePoll className="m-1 h-5 w-5" />
+                                <span
+                                    className={` ${
+                                        isVisible ? 'ml-4 inline' : 'hidden'
+                                    } ml-4 lg:inline`}
+                                >
+                                    Finance
                                 </span>
                             </NavLink>
                         </li>

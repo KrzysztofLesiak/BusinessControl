@@ -6,6 +6,7 @@ import { Login } from './pages/Login'
 import './App.scss'
 import { AppRoute } from './components/AppRoute'
 import { Register } from './pages/Register'
+import { Finance } from './pages/Finance'
 
 function App() {
     return (
@@ -39,6 +40,14 @@ function App() {
                 element={
                     <AppRoute>
                         <Employees />
+                    </AppRoute>
+                }
+            />
+            <Route
+                path="/finance"
+                element={
+                    <AppRoute>
+                        <Finance />
                     </AppRoute>
                 }
             />
