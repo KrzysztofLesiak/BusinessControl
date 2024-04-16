@@ -1,12 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
+
 import { Home } from './pages/Home'
 import { Employees } from './pages/Employees'
 import { NewEmployee } from './pages/Employees/NewEmployee'
 import { Login } from './pages/Login'
-import './App.scss'
 import { AppRoute } from './components/AppRoute'
 import { Register } from './pages/Register'
 import { Finance } from './pages/Finance'
+
+import './App.scss'
 
 function App() {
     return (

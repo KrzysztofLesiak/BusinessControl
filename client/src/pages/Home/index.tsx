@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import Arrow from '../../assets/arrow-right-solid.svg?react'
 
@@ -6,9 +6,6 @@ import { useAppSelector } from '../../redux/hooks'
 import { RootState } from '../../redux/store'
 import { useEmployees } from '../../hooks/useEmployees'
 import { Loading } from '../../components/Loading'
-
-import { Employees } from '../Employees'
-import { NewEmployee } from '../Employees/NewEmployee'
 
 export const Home = () => {
     const length = useAppSelector((state: RootState) => state.employees.length)
@@ -56,12 +53,25 @@ export const Home = () => {
                         )}
                     </div>
                 </div>
+                <div className="mx-auto flex h-full w-full min-w-[240px] flex-col justify-between rounded-3xl bg-white p-6 shadow-xl xl:col-span-2">
+                    <div className="mb-10 flex h-fit w-full justify-between">
+                        <div className="flex">
+                            <h2 className=" flex items-center justify-between text-2xl font-bold text-blue3-dark">
+                                Finance
+                            </h2>
+                            <select className="mx-4 my-auto h-fit rounded-2xl border-2 border-secondary-light p-2 outline-secondary-light ">
+                                <option value="lastYear">Last Year</option>
+                                <option value="lastMonth">Last Month</option>
+                                <option value="lastWeek">Last Week</option>
+                                <option value="lastDay">Last Day</option>
+                            </select>
+                        </div>
+                        <Link className="float-right" to="/finance">
+                            <Arrow className="h-auto w-6" />
+                        </Link>
+                    </div>
+                </div>
             </div>
-            <Routes>
-                <Route path="/employees" element={<Employees />} />
-                <Route path="/employees/new" element={<NewEmployee />} />
-                <Route path="/employees/:id" element={<Employees />} />
-            </Routes>
         </section>
     )
 }
