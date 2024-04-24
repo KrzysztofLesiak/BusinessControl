@@ -24,10 +24,7 @@ export const EmployeesDashboard = () => {
                 {isEmployeesLoading && <Loading />}
                 {isEmployeesSuccess && (
                     <>
-                        <p
-                            className="flex items-center justify-between text-lg leading-none
-        "
-                        >
+                        <p className="flex items-center justify-between text-lg leading-none">
                             Numbers of active employees:{' '}
                             <span className=" p ml-2  border-b-4 border-blue3-dark p-2">
                                 {length}
