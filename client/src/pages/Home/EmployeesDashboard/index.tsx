@@ -13,18 +13,18 @@ export const EmployeesDashboard = () => {
     const { isEmployeesLoading, isEmployeesSuccess } = useEmployees()
 
     return (
-        <div className="mx-auto flex h-full w-full min-w-[240px] flex-col justify-between rounded-3xl bg-white p-6 shadow-xl">
-            <h2 className="mb-10 flex items-center justify-between text-2xl font-bold text-blue3-dark">
+        <div className="mx-auto flex h-full w-full min-w-[240px] flex-col justify-between rounded-3xl bg-secondary-light p-6 shadow-xl">
+            <h2 className="text-quartiary-light mb-10 flex items-center justify-between text-2xl font-bold">
                 Employees
                 <Link to="/employees">
-                    <Arrow className="h-auto w-6" />
+                    <Arrow className="text-quartiary-light h-auto w-6" />
                 </Link>
             </h2>
             <div>
                 {isEmployeesLoading && <Loading />}
                 {isEmployeesSuccess && (
                     <>
-                        <p className="flex items-center justify-between text-lg leading-none">
+                        <p className="text-quartiary-light flex items-center justify-between text-lg leading-none">
                             Numbers of active employees:{' '}
                             <span className=" p ml-2  border-b-4 border-blue3-dark p-2">
                                 {length}
@@ -33,13 +33,13 @@ export const EmployeesDashboard = () => {
                         <div className="flex flex-wrap justify-around">
                             <Link
                                 to="/employees/new"
-                                className="mt-6 inline-block w-full rounded-2xl border-4 border-secondary-light bg-none p-2 text-center  hover:bg-secondary-light hover:text-white"
+                                className="border-quartiary-light hover:bg-quartiary-light mt-6 inline-block w-full rounded-2xl border-4 bg-none p-2  text-center hover:text-white"
                             >
                                 Add Employee
                             </Link>
                             <Link
                                 to="/employees"
-                                className="mt-4 inline-block w-full  rounded-2xl border-4 border-secondary-light bg-secondary-light  p-2 text-center text-white hover:bg-blue3-light"
+                                className="border-quartiary-light bg-quartiary-light mt-4  inline-block w-full rounded-2xl border-4  p-2 text-center text-white hover:bg-blue3-light"
                             >
                                 Employee List
                             </Link>

@@ -19,11 +19,11 @@ export const Login = () => {
                     </Link>
                 </p>
                 <label htmlFor="email" className="relative mt-8">
-                    <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-secondary-light">
+                    <p className="text-quartiary-light absolute -top-3 left-3 rounded-md bg-white px-2">
                         Email address
                     </p>
                     <input
-                        className="w-full rounded-lg border border-grey-light p-3 text-sm shadow-md outline-secondary-light"
+                        className="outline-quartiary-light w-full rounded-lg border border-grey-light p-3 text-sm shadow-md"
                         type="email"
                         autoComplete="email"
                         id="email"
@@ -33,11 +33,11 @@ export const Login = () => {
                     />
                 </label>
                 <label htmlFor="password" className="relative my-8">
-                    <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-secondary-light">
+                    <p className="text-quartiary-light absolute -top-3 left-3 rounded-md bg-white px-2">
                         Password
                     </p>
                     <input
-                        className="w-full rounded-lg border border-grey-light p-3 shadow-md outline-secondary-light"
+                        className="outline-quartiary-light w-full rounded-lg border border-grey-light p-3 shadow-md"
                         type="password"
                         id="password"
                         name="password"
@@ -46,7 +46,7 @@ export const Login = () => {
                         onChange={handleAuthInput}
                     />
                 </label>
-                <button className="rounded-lg bg-secondary-light p-3 text-white">
+                <button className="bg-quartiary-light rounded-lg p-3 text-white">
                     Login
                 </button>
             </form>

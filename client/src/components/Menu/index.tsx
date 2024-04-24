@@ -13,7 +13,7 @@ export const Menu = () => {
             <Clock />
             <div
                 onClick={loginNavigation}
-                className="flex h-fit rounded-full border-2 border-grey-light px-4 py-2 text-secondary-light shadow-lg"
+                className="text-quartiary-light flex h-fit rounded-full border-2 border-grey-light px-4 py-2 shadow-lg"
             >
                 <User className="mr-4 h-5 w-5" />
                 <span>{user.user_id ? 'Logout' : 'Login'}</span>

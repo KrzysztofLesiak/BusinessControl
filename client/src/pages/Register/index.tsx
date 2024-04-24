@@ -72,7 +72,7 @@ export const Register = () => {
                             First Name
                         </p>
                         <input
-                            className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light ${
+                            className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md ${
                                 registerValidation.firstName
                                     ? 'border-error'
                                     : 'border-grey-light'
@@ -90,7 +90,7 @@ export const Register = () => {
                             Last Name
                         </p>
                         <input
-                            className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light ${
+                            className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md ${
                                 registerValidation.lastName
                                     ? 'border-error'
                                     : 'border-grey-light'
@@ -110,7 +110,7 @@ export const Register = () => {
                         Email address
                     </p>
                     <input
-                        className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light ${
+                        className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md ${
                             registerValidation.email
                                 ? 'border-error'
                                 : 'border-grey-light'
@@ -128,7 +128,7 @@ export const Register = () => {
                         Password
                     </p>
                     <input
-                        className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light ${
+                        className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md ${
                             registerValidation.password
                                 ? 'border-error'
                                 : 'border-grey-light'
@@ -208,7 +208,7 @@ export const Register = () => {
                         Confirm Password
                     </p>
                     <input
-                        className={`w-full rounded-lg border p-3 shadow-md outline-secondary-light
+                        className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md
                             ${
                                 registerValidation.confirmPassword
                                     ? 'border-error'
@@ -225,7 +225,7 @@ export const Register = () => {
                 </label>
                 <button
                     type="submit"
-                    className="my-4 rounded-lg bg-secondary-light p-3 text-white shadow-md"
+                    className="bg-quartiary-light my-4 rounded-lg p-3 text-white shadow-md"
                 >
                     {isRegisterLoading ? (
                         <Loader className="m-auto h-6 w-6 animate-spin bg-opacity-0 bg-none" />

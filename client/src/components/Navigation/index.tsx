@@ -19,7 +19,7 @@ export const Navigation = () => {
     return (
         <>
             <nav
-                className={`fixed left-0 top-0 z-40 mx-auto h-screen w-16 -translate-x-full bg-secondary-light bg-gradient-to-b from-secondary-light from-30% to-blue3-light py-8 text-white transition-all sm:-translate-x-0 lg:w-64 lg:px-8 ${
+                className={`bg-quartiary-light from-quartiary-light to-navGradient fixed left-0 top-0 z-40 mx-auto h-screen w-16 -translate-x-full bg-gradient-to-b from-30% py-8 text-white transition-all sm:-translate-x-0 lg:w-64 lg:px-8 ${
                     isVisible ? 'w-72 translate-x-0 pl-8 pr-12' : ''
                 }`}
                 aria-label="Sidebar"
@@ -32,7 +32,7 @@ export const Navigation = () => {
                         </span>
                     </div>
                     <Arrow
-                        className={`absolute -right-8 top-12 -z-10 h-auto w-10 cursor-pointer bg-secondary-light p-3 sm:-right-6 lg:hidden ${
+                        className={`bg-quartiary-light absolute -right-8 top-12 -z-10 h-auto w-10 cursor-pointer p-3 sm:-right-6 lg:hidden ${
                             isVisible
                                 ? 'rotate-180 rounded-l-full'
                                 : 'rotate-0 rounded-r-full'

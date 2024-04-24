@@ -34,7 +34,7 @@ export const Employee = () => {
                             className="mb-4 w-full text-left"
                             onClick={handleNavigate}
                         >
-                            <Chevron className="h-auto w-6 -rotate-90 text-secondary-light" />
+                            <Chevron className="text-quartiary-light h-auto w-6 -rotate-90" />
                         </div>
                         <EmployeeForm />
                         <button

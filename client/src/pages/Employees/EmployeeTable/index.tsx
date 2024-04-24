@@ -25,7 +25,7 @@ export const EmployeeTable = () => {
     return (
         <>
             <table
-                className={`mx-auto w-full table-auto overflow-hidden border border-blue1-light shadow-xl transition-all duration-1000 ${
+                className={` mx-auto w-full table-auto overflow-hidden shadow-xl transition-all duration-1000 ${
                     isEmployeesLoading ||
                     isEmployeesFetching ||
                     employees.length === 0
@@ -33,10 +33,10 @@ export const EmployeeTable = () => {
                         : 'rounded-xl'
                 }`}
             >
-                <thead className="bg-blue1-light">
+                <thead className="bg-secondary-light">
                     <tr>
                         <th onClick={() => handleSortBy('id')}>
-                            <span className="relative flex w-full flex-row items-center justify-center border-r-2 border-blue2-light p-3">
+                            <span className="border-quartiary-light relative flex w-full flex-row items-center justify-center border-r-2 p-3">
                                 Id{' '}
                                 <Chevron
                                     className={`${
@@ -148,7 +148,7 @@ export const EmployeeTable = () => {
                     {isEmployeesSuccess &&
                         employees.map((employee) => (
                             <tr
-                                className="\bg-white border-b border-blue1-light bg-white text-sm hover:bg-grey-light"
+                                className="\bg-white border-b border-secondary-light bg-white text-sm hover:bg-grey-light"
                                 key={employee.id}
                                 onClick={() => handleNavigate(employee.id!)}
                                 data-testid={`employee-${employee.id}`}
@@ -220,13 +220,13 @@ export const EmployeeTable = () => {
                 </tbody>
             </table>
             {employees.length === 0 && isEmployeesSuccess && (
-                <div className="w-full rounded-b-xl  bg-primary-light p-4 text-center">
+                <div className="w-full rounded-b-xl bg-white p-4 text-center">
                     No employees
                 </div>
             )}
 
             {isEmployeesLoading && (
-                <div className="w-full rounded-b-xl  bg-primary-light">
+                <div className="w-full rounded-b-xl  bg-white">
                     <Loading />
                 </div>
             )}

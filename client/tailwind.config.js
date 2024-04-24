@@ -16,25 +16,18 @@ export default {
                 dark: '#032030',
             },
             secondary: {
-                light: '#395886',
+                light: '#D7E2F6',
                 dark: '#006DA4',
             },
-            grey: {
-                light: '#E7EBF4',
+            tiertary: {
+                light: '#B1C9EF',
                 dark: '#022B42',
             },
-            blue1: {
-                light: '#b1c9ef',
+            quartiary: {
+                light: '#385784',
                 dark: '#003554',
             },
-            blue2: {
-                light: '#8aaee0',
-                dark: '#004d74',
-            },
-            blue3: {
-                light: '#638ecb',
-                dark: '#006da4',
-            },
+            navGradient: '#6A99DD',
         },
         extend: {
             animation: {
