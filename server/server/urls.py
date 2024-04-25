@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('admin/login/', CustomLoginView.as_view(), name='login'),
     path("", include("employees.urls")),
-    path("", include("users.urls"))
+    path("", include("users.urls")),
+    path("", include("finance.urls")),
 ]

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'employees',
     'users',
+    'finance',
     'rest_framework',
     'corsheaders',
     'django_filters'
