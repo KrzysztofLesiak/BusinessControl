@@ -5,7 +5,7 @@ from . import views
 
 
 router = routers.DefaultRouter()
-# router.register(r'employees', views.EmployeeViewSet)
+router.register(r'finance', views.FinanceViewSet)
 
 urlpatterns = [
     path("", include(router.urls))

@@ -17,7 +17,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     search_fields = ['first_name', 'last_name']
     ordering_fields = '__all__'
 
-    def list(self, request, *args, **kwargs):
+    def list(self):
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
 
