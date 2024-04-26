@@ -202,8 +202,6 @@ export const useEmployees = (): useEmployeesData => {
         }
     }, [dispatch, getEmployeesData])
 
-    useEffect(() => {}, [])
-
     return {
         inputValue,
         isEmployeesLoading,
