@@ -12,7 +12,7 @@ export const TotalIncome = ({ totalIncome }: TotalIncomeProps) => {
                     <h2 className="text-lg font-bold text-quartiary-light">
                         Total Income
                     </h2>
-                    <select className="ml-2 h-8 rounded-full pl-1 text-sm">
+                    <select className="ml-2 h-8 rounded-full pl-1 text-xs">
                         <option value="lastYear">Last Year</option>
                         <option value="lastMonth">Last Month</option>
                         <option value="lastWeek">Last Week</option>

@@ -10,12 +10,11 @@ class Transactions(models.Model):
     name = models.CharField(max_length=64)
     time = models.DateTimeField(auto_now_add=True)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
-    currency = models.CharField(max_length=3)
+    currency = models.CharField(max_length=3, default="usd")
     type = models.CharField(
         max_length=2, choices=TRANSACTION_TYPE_CHOICES)
     description = models.TextField(max_length=1024)
-    category = models.ForeignKey(
-        "TransactionCategory", on_delete=models.SET("other"))
+    category = models.CharField(max_length=64)
     indetifier = models.CharField(max_length=64, null=True, blank=True)
 
     class Meta:

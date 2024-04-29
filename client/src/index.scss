@@ -3,13 +3,33 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Montserrat-Medium';
-    src: url('./assets/fonts/Montserrat-Medium.ttf');
+    font-family: 'OpenSans-Light';
+    src: url('./assets/fonts/OpenSans-Light.ttf');
 }
 
 @font-face {
-    font-family: 'Montserrat-Bold';
-    src: url('./assets/fonts/Montserrat-Bold.ttf');
+    font-family: 'OpenSans-Italic';
+    src: url('./assets/fonts/OpenSans-Italic.ttf');
+}
+
+@font-face {
+    font-family: 'OpenSans-Medium';
+    src: url('./assets/fonts/OpenSans-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'OpenSans-SemiBold';
+    src: url('./assets/fonts/OpenSans-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'OpenSans-Bold';
+    src: url('./assets/fonts/OpenSans-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'OpenSans-ExtraBold';
+    src: url('./assets/fonts/OpenSans-ExtraBold.ttf');
 }
 
 *,
@@ -18,7 +38,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat-Medium';
+    font-family: 'OpenSans-Medium';
+    font-size: medium;
 }
 
 html {

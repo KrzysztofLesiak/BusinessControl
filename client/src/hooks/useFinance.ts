@@ -78,7 +78,6 @@ export const useFinance = (): UseFinanceData => {
 
     useEffect(() => {
         setTransactions(transactionsData?.transactions)
-        console.log(transactionsData)
     }, [transactionsData])
 
     return {

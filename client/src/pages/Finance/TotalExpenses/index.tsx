@@ -1,9 +1,9 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 
 import XMark from '../../../assets/xmark-solid.svg?react'
 
-ChartJS.register(ArcElement, Tooltip, Legend)
+ChartJS.register(ArcElement, Tooltip)
 
 type TotalExpensesProps = {
     totalExpenses: number | undefined
@@ -70,7 +70,7 @@ export const TotalExpenses = ({ totalExpenses }: TotalExpensesProps) => {
                         </li>
                     </ul>
                 </div>
-                <div className="h-48 w-48">
+                <div className="h-44 w-44">
                     <Doughnut data={data} />
                 </div>
             </div>
