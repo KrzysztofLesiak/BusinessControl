@@ -3,6 +3,7 @@ import { useFinance } from '../../hooks/useFinance'
 import { TotalBalance } from './TotalBalance'
 import { TotalExpenses } from './TotalExpenses'
 import { TotalIncome } from './TotalIncome'
+import { FinanceChart } from './FinanceChart'
 
 export const Finance = () => {
     const {
@@ -20,6 +21,7 @@ export const Finance = () => {
             <TotalBalance totalAmount={totalAmount} />
             <TotalIncome totalIncome={totalIncome} />
             <TotalExpenses totalExpenses={totalExpenses} />
+            <FinanceChart />
             <form onSubmit={handleIncomeSubmit}>
                 <label>
                     Name:

@@ -2,7 +2,7 @@ import { EmployeeForm } from '../../../components/EmployeeForm'
 
 export const NewEmployee = () => {
     return (
-        <section className="m-auto flex h-full w-full overflow-auto px-2 py-8">
+        <section className="mx-auto flex h-full w-full px-2 py-8">
             <div
                 className="m-auto flex h-fit  min-w-72 flex-col items-center justify-center
              rounded-3xl bg-white px-8 shadow-xl"

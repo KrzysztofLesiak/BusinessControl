@@ -21,11 +21,11 @@ export const AppRoute = ({ children }: AppRouteProps) => {
             {!isAuthenticated ? (
                 <></>
             ) : (
-                <div className="bg-quartiary-light from-quartiary-light to-navGradient bg-gradient-to-b shadow-lg">
+                <div className="overflow-hidden bg-quartiary-light bg-gradient-to-b from-quartiary-light to-navGradient shadow-lg">
                     <Navigation />
                     <div className="ml-0 h-screen overflow-auto bg-primary-light transition-all sm:ml-16 sm:rounded-l-3xl lg:ml-64">
-                        <Menu />
-                        <section className="my-auto flex h-[calc(100%-120px)] w-full flex-col p-8">
+                        <section className="my-auto flex h-full w-full flex-col overflow-auto p-8 pt-0">
+                            <Menu />
                             {children}
                         </section>
                     </div>
