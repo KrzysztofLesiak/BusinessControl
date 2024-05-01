@@ -27,10 +27,10 @@ export const useFinance = (): UseFinanceData => {
 
     const [incomeInputs, setIncomeInputs] = useState<Transaction>({
         name: '',
-        amount: 0,
+        amount: '',
         type: 'IN',
         description: '',
-        category: 'test',
+        category: '',
         indetifier: '',
     })
     const [transactions, setTransactions] = useState<Transaction[] | undefined>(
@@ -72,13 +72,24 @@ export const useFinance = (): UseFinanceData => {
         event.preventDefault()
 
         addTransaction({ body: incomeInputs, token })
-
-        if (isAddSuccess) console.log(incomeInputs)
     }
 
     useEffect(() => {
         setTransactions(transactionsData?.transactions)
+        console.log(transactionsData)
     }, [transactionsData])
+
+    useEffect(() => {
+        if (isAddSuccess)
+            setIncomeInputs({
+                name: '',
+                amount: '',
+                category: '',
+                indetifier: '',
+                type: 'IN',
+                description: '',
+            })
+    }, [isAddSuccess])
 
     return {
         incomeInputs,

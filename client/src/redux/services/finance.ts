@@ -3,7 +3,7 @@ import { api } from './api'
 export type Transaction = {
     id?: number
     name: string
-    amount: number
+    amount: number | string
     currency?: string
     type: string
     description?: string

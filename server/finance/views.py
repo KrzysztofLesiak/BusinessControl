@@ -32,6 +32,8 @@ class FinanceViewSet(viewsets.ModelViewSet):
         data = {
             'transactions': serializer.data,
             'count': Transactions.objects.all().count(),
+            'incomes_count': Transactions.objects.filter(type="IN").count(),
+            'expenses_count': Transactions.objects.filter(type="EX").count(),
             'total_income': total_income,
             'total_expenses': total_expenses,
             'total_amount': total_income - total_expenses,

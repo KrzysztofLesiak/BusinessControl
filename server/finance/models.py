@@ -13,12 +13,12 @@ class Transactions(models.Model):
     currency = models.CharField(max_length=3, default="usd")
     type = models.CharField(
         max_length=2, choices=TRANSACTION_TYPE_CHOICES)
-    description = models.TextField(max_length=1024)
+    description = models.TextField(max_length=1024, blank=True, null=True)
     category = models.CharField(max_length=64)
     indetifier = models.CharField(max_length=64, null=True, blank=True)
 
     class Meta:
-        ordering = ['time']
+        ordering = ['-time']
 
 
 class TransactionCategory(models.Model):
