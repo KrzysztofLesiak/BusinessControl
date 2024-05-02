@@ -14,8 +14,14 @@ export const Finance = () => {
         isTransactionsError,
         isTransactionsSuccess,
         transactionsData,
+        editIncome,
+        editInputs,
+        isEditLoading,
         handleIncomeInput,
         handleIncomeSubmit,
+        handleEdit,
+        handleEditInput,
+        handleEditSubmit,
     } = useFinance()
 
     const { totalAmount, totalIncome, totalExpenses, transactions } =
@@ -39,8 +45,14 @@ export const Finance = () => {
                 isTransactionsLoading={isTransactionsLoading}
                 isTransactionsError={isTransactionsError}
                 isTransactionsSuccess={isTransactionsSuccess}
+                editInputs={editInputs}
+                editIncome={editIncome}
                 handleIncomeInput={handleIncomeInput}
                 handleIncomeSubmit={handleIncomeSubmit}
+                handleEdit={handleEdit}
+                handleEditInput={handleEditInput}
+                handleEditSubmit={handleEditSubmit}
+                isEditLoading={isEditLoading}
             />
         </div>
     )

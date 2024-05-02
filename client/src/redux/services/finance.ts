@@ -5,7 +5,7 @@ export type Transaction = {
     name: string
     amount: number | string
     currency?: string
-    type: string
+    type?: string
     description?: string
     category?: string
     indetifier?: string
@@ -64,7 +64,27 @@ export const financeApi = api.injectEndpoints({
             }),
             invalidatesTags: ['Finance'],
         }),
+        editTransaction: build.mutation<
+            Transaction,
+            { body: Transaction; token: string }
+        >({
+            query: ({ body, token }) => ({
+                url: `finance/${body.id}/`,
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body,
+            }),
+            invalidatesTags: (_result, _error, { body }) => [
+                { type: 'Finance', id: body.id },
+            ],
+        }),
     }),
 })
 
-export const { useGetTransactionsQuery, useAddTransactionMutation } = financeApi
+export const {
+    useGetTransactionsQuery,
+    useAddTransactionMutation,
+    useEditTransactionMutation,
+} = financeApi

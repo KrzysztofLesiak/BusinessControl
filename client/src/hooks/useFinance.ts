@@ -6,6 +6,7 @@ import {
     Transaction,
     useAddTransactionMutation,
     useGetTransactionsQuery,
+    useEditTransactionMutation,
 } from '../redux/services/finance'
 
 type UseFinanceData = {
@@ -17,9 +18,15 @@ type UseFinanceData = {
     isTransactionsSuccess: boolean
     isTransactionsError: boolean
     isTransactionsFetching: boolean
+    editIncome: number
+    editInputs: Transaction
+    isEditLoading: boolean
     handleIncomeInput: (event: ChangeEvent<HTMLInputElement>) => void
     handleIncomeSelect: (event: ChangeEvent<HTMLSelectElement>) => void
     handleIncomeSubmit: (event: FormEvent<HTMLFormElement>) => void
+    handleEdit: (id: number | undefined) => void
+    handleEditInput: (event: ChangeEvent<HTMLInputElement>) => void
+    handleEditSubmit: (event: FormEvent<HTMLFormElement>) => void
 }
 
 export const useFinance = (): UseFinanceData => {
@@ -36,6 +43,15 @@ export const useFinance = (): UseFinanceData => {
     const [transactions, setTransactions] = useState<Transaction[] | undefined>(
         []
     )
+    const [editIncome, setEditIncome] = useState<number>(-1)
+    const [editInputs, setEditInputs] = useState<Transaction>({
+        id: -1,
+        name: '',
+        category: '',
+        indetifier: '',
+        amount: '',
+        type: '',
+    })
 
     const {
         data: transactionsData,
@@ -49,6 +65,11 @@ export const useFinance = (): UseFinanceData => {
         addTransaction,
         { isSuccess: isAddSuccess, isLoading: isAddLoading },
     ] = useAddTransactionMutation()
+
+    const [
+        editTransaction,
+        { isSuccess: isEditSuccess, isLoading: isEditLoading },
+    ] = useEditTransactionMutation()
 
     const handleIncomeInput = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -74,9 +95,49 @@ export const useFinance = (): UseFinanceData => {
         addTransaction({ body: incomeInputs, token })
     }
 
+    const handleEdit = (id: number | undefined) => {
+        if (id !== editIncome) {
+            setEditIncome(id || -1)
+            setEditInputs(
+                transactions?.filter(
+                    (transaction) => transaction.id === id
+                )[0] || {
+                    id: -1,
+                    name: '',
+                    category: '',
+                    indetifier: '',
+                    amount: '',
+                    type: '',
+                }
+            )
+        } else {
+            setEditIncome(-1)
+            setEditInputs({
+                id: -1,
+                name: '',
+                category: '',
+                indetifier: '',
+                amount: '',
+                type: '',
+            })
+        }
+    }
+
+    const handleEditInput = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target
+        setEditInputs((prev) => ({
+            ...prev,
+            [name]: value,
+        }))
+    }
+
+    const handleEditSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        editTransaction({ body: editInputs, token })
+    }
+
     useEffect(() => {
         setTransactions(transactionsData?.transactions)
-        console.log(transactionsData)
     }, [transactionsData])
 
     useEffect(() => {
@@ -91,6 +152,20 @@ export const useFinance = (): UseFinanceData => {
             })
     }, [isAddSuccess])
 
+    useEffect(() => {
+        if (isEditSuccess && !isTransactionsFetching) {
+            setEditIncome(-1)
+            setEditInputs({
+                id: -1,
+                name: '',
+                amount: '',
+                category: '',
+                indetifier: '',
+                type: '',
+            })
+        }
+    }, [isEditSuccess, isTransactionsFetching])
+
     return {
         incomeInputs,
         transactions,
@@ -100,8 +175,14 @@ export const useFinance = (): UseFinanceData => {
         isTransactionsSuccess,
         isTransactionsError,
         isTransactionsFetching,
+        editIncome,
+        editInputs,
+        isEditLoading,
         handleIncomeInput,
         handleIncomeSelect,
         handleIncomeSubmit,
+        handleEdit,
+        handleEditInput,
+        handleEditSubmit,
     }
 }
