@@ -1,13 +1,13 @@
-import { Loading } from '../../../components/Loading'
-import { Transaction } from '../../../redux/services/finance'
+import { Loading } from '../../../../components/Loading'
+import { Transaction } from '../../../../redux/services/finance'
 
-import Filter from '../../../assets/filter-solid.svg?react'
-import Add from '../../../assets/xmark-solid.svg?react'
-import Edit from '../../../assets/edit.svg?react'
-import Delete from '../../../assets/delete.svg?react'
-import Loader from '../../../assets/spinner-solid.svg?react'
-import Check from '../../../assets/check-solid.svg?react'
-import Xmark from '../../../assets/xmark-solid.svg?react'
+import Filter from '../../../../assets/filter-solid.svg?react'
+import Add from '../../../../assets/xmark-solid.svg?react'
+import Edit from '../../../../assets/edit.svg?react'
+import Delete from '../../../../assets/delete.svg?react'
+import Loader from '../../../../assets/spinner-solid.svg?react'
+import Check from '../../../../assets/check-solid.svg?react'
+import Xmark from '../../../../assets/xmark-solid.svg?react'
 
 type IncomeProps = {
     incomesList: Transaction[] | undefined

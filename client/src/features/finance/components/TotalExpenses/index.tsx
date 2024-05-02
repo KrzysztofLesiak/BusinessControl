@@ -1,7 +1,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 
-import XMark from '../../../assets/xmark-solid.svg?react'
+import XMark from '../../../../assets/xmark-solid.svg?react'
 
 ChartJS.register(ArcElement, Tooltip)
 

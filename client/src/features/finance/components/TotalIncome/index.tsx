@@ -1,4 +1,4 @@
-import XMark from '../../../assets/xmark-solid.svg?react'
+import XMark from '../../../../assets/xmark-solid.svg?react'
 
 type TotalIncomeProps = {
     totalIncome: number | undefined

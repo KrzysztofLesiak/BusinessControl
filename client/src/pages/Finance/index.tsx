@@ -1,9 +1,9 @@
-import { useFinance } from '../../hooks/useFinance'
-import { TotalBalance } from './TotalBalance'
-import { TotalExpenses } from './TotalExpenses'
-import { TotalIncome } from './TotalIncome'
-import { FinanceChart } from './FinanceChart'
-import { Incomes } from './Incomes'
+import { FinanceChart } from '../../features/finance/components/FinanceChart'
+import { Incomes } from '../../features/finance/components/Incomes'
+import { TotalBalance } from '../../features/finance/components/TotalBalance'
+import { TotalExpenses } from '../../features/finance/components/TotalExpenses'
+import { TotalIncome } from '../../features/finance/components/TotalIncome'
+import { useFinance } from '../../features/finance/hooks/useFinance'
 
 export const Finance = () => {
     const {

@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { useAppSelector } from '../redux/hooks'
+import { useAppSelector } from '../../../redux/hooks'
 
 import {
     GetTransactionsResponse,
@@ -7,7 +7,7 @@ import {
     useAddTransactionMutation,
     useGetTransactionsQuery,
     useEditTransactionMutation,
-} from '../redux/services/finance'
+} from '../../../redux/services/finance'
 
 type UseFinanceData = {
     incomeInputs: Transaction
