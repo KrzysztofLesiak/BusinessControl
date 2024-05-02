@@ -8,42 +8,44 @@ import Delete from '../../../../assets/delete.svg?react'
 import Loader from '../../../../assets/spinner-solid.svg?react'
 import Check from '../../../../assets/check-solid.svg?react'
 import Xmark from '../../../../assets/xmark-solid.svg?react'
+import { useEdit } from '../../hooks/useEdit'
+import { useAppSelector } from '../../../../redux/hooks'
 
 type IncomeProps = {
-    incomesList: Transaction[] | undefined
     incomeInputs: Transaction
     isAddLoading: boolean
     isTransactionsFetching: boolean
     isTransactionsLoading: boolean
     isTransactionsError: boolean
     isTransactionsSuccess: boolean
-    editIncome: number
-    editInputs: Transaction
-    isEditLoading: boolean
     handleIncomeInput: (event: React.ChangeEvent<HTMLInputElement>) => void
     handleIncomeSubmit: (event: React.FormEvent<HTMLFormElement>) => void
-    handleEdit: (id: number | undefined) => void
-    handleEditInput: (event: React.ChangeEvent<HTMLInputElement>) => void
-    handleEditSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
 export const Incomes = ({
-    incomesList,
     incomeInputs,
     isAddLoading,
     isTransactionsFetching,
     isTransactionsLoading,
     isTransactionsError,
     isTransactionsSuccess,
-    editIncome,
-    editInputs,
-    isEditLoading,
     handleIncomeInput,
     handleIncomeSubmit,
-    handleEdit,
-    handleEditInput,
-    handleEditSubmit,
 }: IncomeProps) => {
+    const { transactions } = useAppSelector((state) => state.finance)
+    const {
+        editIncome,
+        editInputs,
+        isEditLoading,
+        handleEdit,
+        handleEditInput,
+        handleEditSubmit,
+    } = useEdit()
+
+    const incomesList = transactions?.filter(
+        (transaction) => transaction.type === 'IN'
+    )
+
     return (
         <div className="col-span-3 w-full rounded-3xl border-4 border-secondary-light bg-white p-4 transition-all">
             <div className="flex items-center">

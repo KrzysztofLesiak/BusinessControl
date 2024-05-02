@@ -1,13 +1,16 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { useAppSelector } from '../../../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 
 import {
     GetTransactionsResponse,
     Transaction,
     useAddTransactionMutation,
     useGetTransactionsQuery,
-    useEditTransactionMutation,
 } from '../../../redux/services/finance'
+import {
+    updateStatus,
+    updateTransactions,
+} from '../../../redux/slice/financeSlice'
 
 type UseFinanceData = {
     incomeInputs: Transaction
@@ -18,19 +21,15 @@ type UseFinanceData = {
     isTransactionsSuccess: boolean
     isTransactionsError: boolean
     isTransactionsFetching: boolean
-    editIncome: number
-    editInputs: Transaction
-    isEditLoading: boolean
     handleIncomeInput: (event: ChangeEvent<HTMLInputElement>) => void
     handleIncomeSelect: (event: ChangeEvent<HTMLSelectElement>) => void
     handleIncomeSubmit: (event: FormEvent<HTMLFormElement>) => void
-    handleEdit: (id: number | undefined) => void
-    handleEditInput: (event: ChangeEvent<HTMLInputElement>) => void
-    handleEditSubmit: (event: FormEvent<HTMLFormElement>) => void
 }
 
 export const useFinance = (): UseFinanceData => {
     const { token } = useAppSelector((state) => state.users)
+    const { transactions } = useAppSelector((state) => state.finance)
+    const dipsatch = useAppDispatch()
 
     const [incomeInputs, setIncomeInputs] = useState<Transaction>({
         name: '',
@@ -39,18 +38,6 @@ export const useFinance = (): UseFinanceData => {
         description: '',
         category: '',
         indetifier: '',
-    })
-    const [transactions, setTransactions] = useState<Transaction[] | undefined>(
-        []
-    )
-    const [editIncome, setEditIncome] = useState<number>(-1)
-    const [editInputs, setEditInputs] = useState<Transaction>({
-        id: -1,
-        name: '',
-        category: '',
-        indetifier: '',
-        amount: '',
-        type: '',
     })
 
     const {
@@ -65,11 +52,6 @@ export const useFinance = (): UseFinanceData => {
         addTransaction,
         { isSuccess: isAddSuccess, isLoading: isAddLoading },
     ] = useAddTransactionMutation()
-
-    const [
-        editTransaction,
-        { isSuccess: isEditSuccess, isLoading: isEditLoading },
-    ] = useEditTransactionMutation()
 
     const handleIncomeInput = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -95,50 +77,10 @@ export const useFinance = (): UseFinanceData => {
         addTransaction({ body: incomeInputs, token })
     }
 
-    const handleEdit = (id: number | undefined) => {
-        if (id !== editIncome) {
-            setEditIncome(id || -1)
-            setEditInputs(
-                transactions?.filter(
-                    (transaction) => transaction.id === id
-                )[0] || {
-                    id: -1,
-                    name: '',
-                    category: '',
-                    indetifier: '',
-                    amount: '',
-                    type: '',
-                }
-            )
-        } else {
-            setEditIncome(-1)
-            setEditInputs({
-                id: -1,
-                name: '',
-                category: '',
-                indetifier: '',
-                amount: '',
-                type: '',
-            })
-        }
-    }
-
-    const handleEditInput = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target
-        setEditInputs((prev) => ({
-            ...prev,
-            [name]: value,
-        }))
-    }
-
-    const handleEditSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        editTransaction({ body: editInputs, token })
-    }
-
     useEffect(() => {
-        setTransactions(transactionsData?.transactions)
-    }, [transactionsData])
+        if (transactionsData?.transactions)
+            dipsatch(updateTransactions(transactionsData?.transactions))
+    }, [dipsatch, transactionsData])
 
     useEffect(() => {
         if (isAddSuccess)
@@ -153,18 +95,21 @@ export const useFinance = (): UseFinanceData => {
     }, [isAddSuccess])
 
     useEffect(() => {
-        if (isEditSuccess && !isTransactionsFetching) {
-            setEditIncome(-1)
-            setEditInputs({
-                id: -1,
-                name: '',
-                amount: '',
-                category: '',
-                indetifier: '',
-                type: '',
-            })
+        const status = {
+            isLoading: isTransactionsLoading,
+            isSuccess: isTransactionsSuccess,
+            isError: isTransactionsError,
+            isFetching: isTransactionsFetching,
         }
-    }, [isEditSuccess, isTransactionsFetching])
+
+        dipsatch(updateStatus(status))
+    }, [
+        isTransactionsError,
+        isTransactionsSuccess,
+        isTransactionsLoading,
+        isTransactionsFetching,
+        dipsatch,
+    ])
 
     return {
         incomeInputs,
@@ -175,14 +120,8 @@ export const useFinance = (): UseFinanceData => {
         isTransactionsSuccess,
         isTransactionsError,
         isTransactionsFetching,
-        editIncome,
-        editInputs,
-        isEditLoading,
         handleIncomeInput,
         handleIncomeSelect,
         handleIncomeSubmit,
-        handleEdit,
-        handleEditInput,
-        handleEditSubmit,
     }
 }
