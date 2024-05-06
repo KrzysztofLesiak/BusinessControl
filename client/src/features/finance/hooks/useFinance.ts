@@ -50,7 +50,7 @@ export const useFinance = (): UseFinanceData => {
 
     const [
         addTransaction,
-        { isSuccess: isAddSuccess, isLoading: isAddLoading },
+        { isSuccess: isAddSuccess, isLoading: isAddLoading, error },
     ] = useAddTransactionMutation()
 
     const handleIncomeInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -110,6 +110,10 @@ export const useFinance = (): UseFinanceData => {
         isTransactionsFetching,
         dipsatch,
     ])
+
+    useEffect(() => {
+        console.log(error)
+    }, [error])
 
     return {
         incomeInputs,

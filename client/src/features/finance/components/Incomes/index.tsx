@@ -1,5 +1,8 @@
 import { Loading } from '../../../../components/Loading'
 import { Transaction } from '../../../../redux/services/finance'
+import { useEdit } from '../../hooks/useEdit'
+import { useAppSelector } from '../../../../redux/hooks'
+import { useDelete } from '../../hooks/useDelete'
 
 import Filter from '../../../../assets/filter-solid.svg?react'
 import Add from '../../../../assets/xmark-solid.svg?react'
@@ -8,16 +11,10 @@ import Delete from '../../../../assets/delete.svg?react'
 import Loader from '../../../../assets/spinner-solid.svg?react'
 import Check from '../../../../assets/check-solid.svg?react'
 import Xmark from '../../../../assets/xmark-solid.svg?react'
-import { useEdit } from '../../hooks/useEdit'
-import { useAppSelector } from '../../../../redux/hooks'
 
 type IncomeProps = {
     incomeInputs: Transaction
     isAddLoading: boolean
-    isTransactionsFetching: boolean
-    isTransactionsLoading: boolean
-    isTransactionsError: boolean
-    isTransactionsSuccess: boolean
     handleIncomeInput: (event: React.ChangeEvent<HTMLInputElement>) => void
     handleIncomeSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
@@ -25,14 +22,12 @@ type IncomeProps = {
 export const Incomes = ({
     incomeInputs,
     isAddLoading,
-    isTransactionsFetching,
-    isTransactionsLoading,
-    isTransactionsError,
-    isTransactionsSuccess,
     handleIncomeInput,
     handleIncomeSubmit,
 }: IncomeProps) => {
-    const { transactions } = useAppSelector((state) => state.finance)
+    const { transactions, transactionStatus } = useAppSelector(
+        (state) => state.finance
+    )
     const {
         editIncome,
         editInputs,
@@ -41,6 +36,13 @@ export const Incomes = ({
         handleEditInput,
         handleEditSubmit,
     } = useEdit()
+    const {
+        isDeleteLoading,
+        isDeleteVisible,
+        deleteIncome,
+        handleDelete,
+        handleDeleteSubmit,
+    } = useDelete()
 
     const incomesList = transactions?.filter(
         (transaction) => transaction.type === 'IN'
@@ -116,7 +118,7 @@ export const Incomes = ({
                     </button>
                 </div>
             </form>
-            {incomesList && isTransactionsSuccess ? (
+            {incomesList && transactionStatus.isSuccess ? (
                 <ul>
                     {incomesList.map((income) => (
                         <li key={income.id} className="w-full">
@@ -150,12 +152,21 @@ export const Incomes = ({
                                         />
                                     </button>
                                     <button
-                                        className={` h-8 w-8 rounded-full p-1 hover:bg-secondary-light`}
+                                        className={`  h-8 w-8 rounded-full p-1 hover:bg-error hover:bg-opacity-20`}
+                                        onClick={() => handleDelete(income.id)}
                                     >
-                                        <Delete
-                                            aria-label="Delete"
-                                            className="m-auto h-5 w-5"
-                                        />
+                                        {deleteIncome === income.id &&
+                                        isDeleteVisible ? (
+                                            <Xmark
+                                                aria-label="Cancel"
+                                                className="m-auto h-5 w-5"
+                                            />
+                                        ) : (
+                                            <Delete
+                                                aria-label="Delete"
+                                                className="m-auto h-5 w-5"
+                                            />
+                                        )}
                                     </button>
                                 </div>
 
@@ -251,16 +262,47 @@ export const Incomes = ({
                                     </button>
                                 </div>
                             </div>
+                            {deleteIncome === income.id && (
+                                <div
+                                    className={`${
+                                        isDeleteVisible ? 'h-14' : 'h-0'
+                                    } w-full overflow-hidden text-center text-sm transition-all`}
+                                >
+                                    <span className="text-sm">
+                                        Do you want to delete this income?
+                                    </span>
+                                    <button
+                                        onClick={() =>
+                                            handleDeleteSubmit(income.id)
+                                        }
+                                        className="mx-2 my-auto h-6 w-6 rounded-full bg-success bg-opacity-20 p-1"
+                                    >
+                                        {isDeleteLoading ? (
+                                            <Loader
+                                                aria-label="Loading"
+                                                className="m-auto h-4 w-4 animate-spin"
+                                            />
+                                        ) : (
+                                            <Check className="m-auto h-4 w-4" />
+                                        )}
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(income.id)}
+                                        className="h-6 w-6 rounded-full bg-error bg-opacity-20 p-1"
+                                    >
+                                        <Xmark className="m-auto h-4 w-4" />
+                                    </button>
+                                </div>
+                            )}
                             <div className=" mx-auto w-[100%] border-b-2 border-dark border-opacity-5"></div>
                         </li>
                     ))}
                 </ul>
             ) : (
                 <div className="w-full text-center text-dark">
-                    {(isTransactionsFetching || isTransactionsLoading) && (
-                        <Loading />
-                    )}
-                    {isTransactionsError &&
+                    {(transactionStatus.isFetching ||
+                        transactionStatus.isLoading) && <Loading />}
+                    {transactionStatus.isError &&
                         'Something went wrong. Please try again later.'}
                 </div>
             )}

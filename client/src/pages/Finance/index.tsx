@@ -9,10 +9,6 @@ export const Finance = () => {
     const {
         incomeInputs,
         isAddLoading,
-        isTransactionsFetching,
-        isTransactionsLoading,
-        isTransactionsError,
-        isTransactionsSuccess,
         transactionsData,
         handleIncomeInput,
         handleIncomeSubmit,
@@ -29,10 +25,6 @@ export const Finance = () => {
             <Incomes
                 incomeInputs={incomeInputs}
                 isAddLoading={isAddLoading}
-                isTransactionsFetching={isTransactionsFetching}
-                isTransactionsLoading={isTransactionsLoading}
-                isTransactionsError={isTransactionsError}
-                isTransactionsSuccess={isTransactionsSuccess}
                 handleIncomeInput={handleIncomeInput}
                 handleIncomeSubmit={handleIncomeSubmit}
             />

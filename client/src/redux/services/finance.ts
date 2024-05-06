@@ -80,6 +80,21 @@ export const financeApi = api.injectEndpoints({
                 { type: 'Finance', id: body.id },
             ],
         }),
+        deleteTransaction: build.mutation<
+            Transaction,
+            { id: number; token: string }
+        >({
+            query: ({ id, token }) => ({
+                url: `finance/${id}/`,
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }),
+            invalidatesTags: (_result, _error, { id }) => [
+                { type: 'Finance', id },
+            ],
+        }),
     }),
 })
 
@@ -87,4 +102,5 @@ export const {
     useGetTransactionsQuery,
     useAddTransactionMutation,
     useEditTransactionMutation,
+    useDeleteTransactionMutation,
 } = financeApi
