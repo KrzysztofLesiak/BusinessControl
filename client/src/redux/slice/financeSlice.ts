@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Transaction } from '../services/finance'
 
-type TransactionStatus = {
+export type TransactionStatus = {
     isLoading: boolean
     isSuccess: boolean
     isError: boolean

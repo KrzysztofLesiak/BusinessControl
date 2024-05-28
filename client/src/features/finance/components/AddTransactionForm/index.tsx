@@ -1,7 +1,7 @@
+import { useFinance } from '../../hooks/useFinance'
+
 import Loader from '../../../../assets/spinner-solid.svg?react'
 import Add from '../../../../assets/xmark-solid.svg?react'
-import { useEffect } from 'react'
-import { useFinance } from '../../hooks/useFinance'
 
 type AddTransactionFormProps = {
     type: string
@@ -10,18 +10,13 @@ export const AddTransactionForm = ({ type }: AddTransactionFormProps) => {
     const {
         incomeInputs,
         isAddLoading,
-        setIncomeInputs,
         handleIncomeInput,
         handleIncomeSubmit,
     } = useFinance()
 
-    useEffect(() => {
-        setIncomeInputs((prev) => ({ ...prev, type: type }))
-    }, [setIncomeInputs, type])
-
     return (
         <form
-            onSubmit={handleIncomeSubmit}
+            onSubmit={(event) => handleIncomeSubmit(event, type)}
             className="text-md my-4 flex w-full overflow-hidden rounded-xl bg-[#F4F4F4] p-2 text-sm"
         >
             <input

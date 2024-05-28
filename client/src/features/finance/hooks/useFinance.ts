@@ -23,8 +23,10 @@ type UseFinanceData = {
     isTransactionsFetching: boolean
     handleIncomeInput: (event: ChangeEvent<HTMLInputElement>) => void
     handleIncomeSelect: (event: ChangeEvent<HTMLSelectElement>) => void
-    handleIncomeSubmit: (event: FormEvent<HTMLFormElement>) => void
-    setIncomeInputs: React.Dispatch<React.SetStateAction<Transaction>>
+    handleIncomeSubmit: (
+        event: FormEvent<HTMLFormElement>,
+        type: string
+    ) => void
 }
 
 export const useFinance = (): UseFinanceData => {
@@ -72,12 +74,13 @@ export const useFinance = (): UseFinanceData => {
         }))
     }
 
-    const handleIncomeSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleIncomeSubmit = (
+        event: FormEvent<HTMLFormElement>,
+        type: string
+    ) => {
         event.preventDefault()
 
-        console.log(incomeInputs)
-
-        addTransaction({ body: incomeInputs, token })
+        addTransaction({ body: { ...incomeInputs, type }, token })
     }
 
     useEffect(() => {
@@ -126,6 +129,5 @@ export const useFinance = (): UseFinanceData => {
         handleIncomeInput,
         handleIncomeSelect,
         handleIncomeSubmit,
-        setIncomeInputs,
     }
 }
