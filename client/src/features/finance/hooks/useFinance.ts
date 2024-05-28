@@ -24,6 +24,7 @@ type UseFinanceData = {
     handleIncomeInput: (event: ChangeEvent<HTMLInputElement>) => void
     handleIncomeSelect: (event: ChangeEvent<HTMLSelectElement>) => void
     handleIncomeSubmit: (event: FormEvent<HTMLFormElement>) => void
+    setIncomeInputs: React.Dispatch<React.SetStateAction<Transaction>>
 }
 
 export const useFinance = (): UseFinanceData => {
@@ -34,7 +35,7 @@ export const useFinance = (): UseFinanceData => {
     const [incomeInputs, setIncomeInputs] = useState<Transaction>({
         name: '',
         amount: '',
-        type: 'IN',
+        type: '',
         description: '',
         category: '',
         indetifier: '',
@@ -50,7 +51,7 @@ export const useFinance = (): UseFinanceData => {
 
     const [
         addTransaction,
-        { isSuccess: isAddSuccess, isLoading: isAddLoading, error },
+        { isSuccess: isAddSuccess, isLoading: isAddLoading },
     ] = useAddTransactionMutation()
 
     const handleIncomeInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +75,8 @@ export const useFinance = (): UseFinanceData => {
     const handleIncomeSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
+        console.log(incomeInputs)
+
         addTransaction({ body: incomeInputs, token })
     }
 
@@ -89,7 +92,7 @@ export const useFinance = (): UseFinanceData => {
                 amount: '',
                 category: '',
                 indetifier: '',
-                type: 'IN',
+                type: '',
                 description: '',
             })
     }, [isAddSuccess])
@@ -111,10 +114,6 @@ export const useFinance = (): UseFinanceData => {
         dipsatch,
     ])
 
-    useEffect(() => {
-        console.log(error)
-    }, [error])
-
     return {
         incomeInputs,
         transactions,
@@ -127,5 +126,6 @@ export const useFinance = (): UseFinanceData => {
         handleIncomeInput,
         handleIncomeSelect,
         handleIncomeSubmit,
+        setIncomeInputs,
     }
 }
