@@ -4,12 +4,12 @@ import { useAppSelector } from '../../../../redux/hooks'
 import { useDelete } from '../../hooks/useDelete'
 import { AddTransactionForm } from '../AddTransactionForm'
 
-import Filter from '../../../../assets/filter-solid.svg?react'
 import Edit from '../../../../assets/edit.svg?react'
 import Delete from '../../../../assets/delete.svg?react'
 import Loader from '../../../../assets/spinner-solid.svg?react'
 import Check from '../../../../assets/check-solid.svg?react'
 import Xmark from '../../../../assets/xmark-solid.svg?react'
+import { TransactionsHeader } from '../TransactionsHeader'
 
 export const Incomes = () => {
     const { transactions, transactionStatus } = useAppSelector(
@@ -37,21 +37,7 @@ export const Incomes = () => {
 
     return (
         <div className="col-span-3 w-full rounded-3xl border-4 border-secondary-light bg-white p-4 transition-all">
-            <div className="flex items-center">
-                <h2 className="text-3xl">Incomes</h2>
-                <div className="ml-4 flex rounded-xl bg-secondary-light text-sm">
-                    <input
-                        className="m-1 rounded-lg p-1 pl-4"
-                        type="search"
-                        placeholder="Search"
-                        name="incomeSearch"
-                    />
-                    <div className="mx-2 flex items-center">
-                        <p className="mr-2">Filter</p>
-                        <Filter />
-                    </div>
-                </div>
-            </div>
+            <TransactionsHeader />
             <AddTransactionForm type="IN" />
             {incomesList && transactionStatus.isSuccess ? (
                 <ul>
