@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent } from 'react'
 import { Transaction } from '../../../../redux/services/finance'
 
 type EditTransationProps = {
+    type: string
     income: Transaction
     editIncome: number
     editInputs: Transaction
@@ -10,6 +11,7 @@ type EditTransationProps = {
 }
 
 export const EditTransaction = ({
+    type,
     income,
     editIncome,
     editInputs,
@@ -19,7 +21,7 @@ export const EditTransaction = ({
     return (
         <>
             <form
-                id="editIncomeForm"
+                id={`editIncomeForm${type}`}
                 className={`${
                     editIncome === income.id ? '' : 'hidden'
                 } absolute flex h-full w-[86%] items-center bg-primary-light py-2`}
@@ -60,7 +62,6 @@ export const EditTransaction = ({
                     value={editInputs.amount}
                     onChange={(event) => handleEditInput(event)}
                 />
-                <input type="hidden" name="type" value="IN" />
             </form>
         </>
     )

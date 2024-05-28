@@ -7,6 +7,7 @@ import Loader from '../../../../assets/spinner-solid.svg?react'
 import Check from '../../../../assets/check-solid.svg?react'
 
 type TransactionButtonsProps = {
+    type: string
     income: Transaction
     deleteIncome: number
     editIncome: number
@@ -17,6 +18,7 @@ type TransactionButtonsProps = {
 }
 
 export const TransactionButtons = ({
+    type,
     income,
     deleteIncome,
     editIncome,
@@ -59,7 +61,7 @@ export const TransactionButtons = ({
             >
                 <button
                     type="submit"
-                    form="editIncomeForm"
+                    form={`editIncomeForm${type}`}
                     className="h-8 w-8 rounded-full p-1 hover:bg-secondary-light"
                     disabled={isEditLoading}
                 >

@@ -36,6 +36,8 @@ export const useEdit = (): UseEditData => {
     ] = useEditTransactionMutation()
 
     const handleEdit = (id: number | undefined) => {
+        console.log(id, editIncome, editInputs)
+
         if (id !== editIncome) {
             setEditIncome(id || -1)
             setEditInputs(
@@ -73,6 +75,8 @@ export const useEdit = (): UseEditData => {
 
     const handleEditSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        console.log(editInputs)
+
         editTransaction({ body: editInputs, token })
     }
 
@@ -101,6 +105,10 @@ export const useEdit = (): UseEditData => {
         transactionStatus.isSuccess,
         transactionStatus.isLoading,
     ])
+
+    useEffect(() => {
+        console.log(editInputs)
+    }, [editInputs])
 
     return {
         editIncome,

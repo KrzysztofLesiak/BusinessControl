@@ -1,3 +1,4 @@
+import { Expenses } from '../../features/finance/components/Expenses'
 import { FinanceChart } from '../../features/finance/components/FinanceChart'
 import { Incomes } from '../../features/finance/components/Incomes'
 import { TotalBalance } from '../../features/finance/components/TotalBalance'
@@ -6,13 +7,7 @@ import { TotalIncome } from '../../features/finance/components/TotalIncome'
 import { useFinance } from '../../features/finance/hooks/useFinance'
 
 export const Finance = () => {
-    const {
-        incomeInputs,
-        isAddLoading,
-        transactionsData,
-        handleIncomeInput,
-        handleIncomeSubmit,
-    } = useFinance()
+    const { transactionsData } = useFinance()
 
     const { totalAmount, totalIncome, totalExpenses } = transactionsData || {}
 
@@ -22,12 +17,8 @@ export const Finance = () => {
             <TotalIncome totalIncome={totalIncome} />
             <TotalExpenses totalExpenses={totalExpenses} />
             <FinanceChart />
-            <Incomes
-                incomeInputs={incomeInputs}
-                isAddLoading={isAddLoading}
-                handleIncomeInput={handleIncomeInput}
-                handleIncomeSubmit={handleIncomeSubmit}
-            />
+            <Incomes />
+            <Expenses />
         </div>
     )
 }

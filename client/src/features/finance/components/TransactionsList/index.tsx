@@ -10,8 +10,12 @@ import { DeleteTransaction } from '../DeleteTransaction'
 
 type TransactionListProps = {
     transactions: Transaction[]
+    type: string
 }
-export const TransactionsList = ({ transactions }: TransactionListProps) => {
+export const TransactionsList = ({
+    transactions,
+    type,
+}: TransactionListProps) => {
     const { transactionStatus } = useAppSelector((state) => state.finance)
 
     const {
@@ -50,6 +54,7 @@ export const TransactionsList = ({ transactions }: TransactionListProps) => {
                                     ${income.amount}
                                 </span>
                                 <TransactionButtons
+                                    type={type}
                                     income={income}
                                     handleDelete={handleDelete}
                                     handleEdit={handleEdit}
@@ -59,6 +64,7 @@ export const TransactionsList = ({ transactions }: TransactionListProps) => {
                                     isEditLoading={isEditLoading}
                                 />
                                 <EditTransaction
+                                    type={type}
                                     income={income}
                                     editIncome={editIncome}
                                     editInputs={editInputs}
