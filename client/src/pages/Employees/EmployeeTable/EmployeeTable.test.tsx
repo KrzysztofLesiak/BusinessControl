@@ -7,44 +7,46 @@ import { Provider } from 'react-redux'
 import store from '../../../redux/store'
 import { api } from '../../../redux/services/api'
 
-const data = [
-    {
-        id: 1,
-        firstName: 'Michał',
-        lastName: 'Kowalczyk',
-        birthDate: '2023-12-22',
-        street: 'Maciejowska 45',
-        city: 'Kraków',
-        postalCode: '30-001',
-        phoneNumber: '444-444-444',
-        status: 'HI',
-        salary: '3445.00',
-    },
-    {
-        id: 2,
-        firstName: 'Janusz',
-        lastName: 'Tracz',
-        birthDate: '2023-12-22',
-        street: 'Kościuszki 34',
-        city: 'Kraków',
-        postalCode: '12-322',
-        phoneNumber: '123-123-123',
-        status: 'HO',
-        salary: '4555.00',
-    },
-    {
-        id: 3,
-        firstName: 'Janusz',
-        lastName: 'Tracz',
-        birthDate: '2023-12-22',
-        street: 'Kościuszki 34',
-        city: 'Kraków',
-        postalCode: '12-322',
-        phoneNumber: '123-123-123',
-        status: 'FI',
-        salary: '4555.00',
-    },
-]
+const data = {
+    employees: [
+        {
+            id: 1,
+            firstName: 'Michał',
+            lastName: 'Kowalczyk',
+            birthDate: '2023-12-22',
+            street: 'Maciejowska 45',
+            city: 'Kraków',
+            postalCode: '30-001',
+            phoneNumber: '444-444-444',
+            status: 'HI',
+            salary: '3445.00',
+        },
+        {
+            id: 2,
+            firstName: 'Janusz',
+            lastName: 'Tracz',
+            birthDate: '2023-12-22',
+            street: 'Kościuszki 34',
+            city: 'Kraków',
+            postalCode: '12-322',
+            phoneNumber: '123-123-123',
+            status: 'HO',
+            salary: '4555.00',
+        },
+        {
+            id: 3,
+            firstName: 'Janusz',
+            lastName: 'Tracz',
+            birthDate: '2023-12-22',
+            street: 'Kościuszki 34',
+            city: 'Kraków',
+            postalCode: '12-322',
+            phoneNumber: '123-123-123',
+            status: 'FI',
+            salary: '4555.00',
+        },
+    ],
+}
 
 const server = setupServer(
     http.get('http://127.0.0.1:8000/employees/', () => {

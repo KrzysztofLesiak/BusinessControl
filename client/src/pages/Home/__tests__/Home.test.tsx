@@ -3,6 +3,8 @@ import { act, cleanup, render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import { Home } from '..'
 import { Clock } from '../../../components/Clock'
+import { Provider } from 'react-redux'
+import store from '../../../redux/store'
 
 jest.useFakeTimers()
 
@@ -19,9 +21,11 @@ afterEach(() => {
 describe('Home', () => {
     it('renders correctly', () => {
         render(
-            <BrowserRouter>
-                <Home />
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Home />
+                </BrowserRouter>
+            </Provider>
         )
         expect(true).toBeTruthy()
     })
@@ -29,7 +33,11 @@ describe('Home', () => {
 
 describe('Clock', () => {
     it('updates date every second', () => {
-        const { getByText } = render(<Clock />)
+        const { getByText } = render(
+            <Provider store={store}>
+                <Clock />
+            </Provider>
+        )
 
         act(() => {
             jest.advanceTimersByTime(1000)
