@@ -172,7 +172,7 @@ export const useUsers = (): UseUsersData => {
             localStorage.setItem('authToken', data.access)
             navigate('/')
         } catch (error) {
-            console.log(error)
+            // TODO - Manage errors
         }
     }
 

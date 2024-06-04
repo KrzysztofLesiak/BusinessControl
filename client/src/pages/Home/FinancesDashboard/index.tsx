@@ -7,10 +7,10 @@ export const FinancesDashboard = () => {
         <div className="mx-auto flex h-full w-full min-w-[240px] flex-col justify-between rounded-3xl bg-white p-6 shadow-xl xl:col-span-2">
             <div className="mb-10 flex h-fit w-full justify-between">
                 <div className="flex">
-                    <h2 className=" flex items-center justify-between text-2xl font-bold text-blue3-dark">
+                    <h2 className=" text-blue3-dark flex items-center justify-between text-2xl font-bold">
                         Finance
                     </h2>
-                    <select className="mx-6 my-auto h-fit rounded-full bg-blue1-light p-2">
+                    <select className="bg-blue1-light mx-6 my-auto h-fit rounded-full p-2">
                         <option value="lastYear">Last Year</option>
                         <option value="lastMonth">Last Month</option>
                         <option value="lastWeek">Last Week</option>

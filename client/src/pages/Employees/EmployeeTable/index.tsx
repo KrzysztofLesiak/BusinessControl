@@ -36,7 +36,7 @@ export const EmployeeTable = () => {
                 <thead className="bg-secondary-light">
                     <tr>
                         <th onClick={() => handleSortBy('id')}>
-                            <span className="border-quartiary-light relative flex w-full flex-row items-center justify-center border-r-2 p-3">
+                            <span className="relative flex w-full flex-row items-center justify-center border-r-2 border-quartiary-light p-3">
                                 Id{' '}
                                 <Chevron
                                     className={`${
@@ -50,7 +50,7 @@ export const EmployeeTable = () => {
                             </span>
                         </th>
                         <th onClick={() => handleSortBy('firstName')}>
-                            <span className="relative flex w-full flex-row items-center justify-center border-r-2 border-blue2-light p-3">
+                            <span className="border-blue2-light relative flex w-full flex-row items-center justify-center border-r-2 p-3">
                                 <p>
                                     <span className="hidden md:inline">
                                         First{' '}
@@ -74,7 +74,7 @@ export const EmployeeTable = () => {
                             className="hidden md:table-cell"
                             onClick={() => handleSortBy('lastName')}
                         >
-                            <span className="relative hidden w-full flex-row items-center justify-around border-r-2 border-blue2-light p-3 sm:flex">
+                            <span className="border-blue2-light relative hidden w-full flex-row items-center justify-around border-r-2 p-3 sm:flex">
                                 Last Name{' '}
                                 <Chevron
                                     className={`${
@@ -91,7 +91,7 @@ export const EmployeeTable = () => {
                             className="hidden sm:table-cell"
                             onClick={() => handleSortBy('position')}
                         >
-                            <span className="relative hidden w-full flex-row items-center justify-around border-r-2 border-blue2-light p-3 sm:flex">
+                            <span className="border-blue2-light relative hidden w-full flex-row items-center justify-around border-r-2 p-3 sm:flex">
                                 Position{' '}
                                 <Chevron
                                     className={`${
@@ -108,7 +108,7 @@ export const EmployeeTable = () => {
                             className="hidden sm:table-cell"
                             onClick={() => handleSortBy('salary')}
                         >
-                            <span className="relative hidden w-full flex-row items-center justify-around border-r-2 border-blue2-light p-3 sm:flex">
+                            <span className="border-blue2-light relative hidden w-full flex-row items-center justify-around border-r-2 p-3 sm:flex">
                                 Salary{' '}
                                 <Chevron
                                     className={`${
@@ -125,7 +125,7 @@ export const EmployeeTable = () => {
                             className="hidden sm:table-cell"
                             onClick={() => handleSortBy('status')}
                         >
-                            <span className="relative hidden w-full flex-row items-center justify-around border-r-2 border-blue2-light p-3 sm:flex">
+                            <span className="border-blue2-light relative hidden w-full flex-row items-center justify-around border-r-2 p-3 sm:flex">
                                 Status{' '}
                                 <Chevron
                                     className={`${
@@ -148,7 +148,7 @@ export const EmployeeTable = () => {
                     {isEmployeesSuccess &&
                         employees.map((employee) => (
                             <tr
-                                className="\bg-white border-b border-secondary-light bg-white text-sm hover:bg-grey-light"
+                                className="\bg-white hover:bg-grey-light border-b border-secondary-light bg-white text-sm"
                                 key={employee.id}
                                 onClick={() => handleNavigate(employee.id!)}
                                 data-testid={`employee-${employee.id}`}

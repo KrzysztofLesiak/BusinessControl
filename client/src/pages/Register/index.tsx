@@ -68,11 +68,11 @@ export const Register = () => {
                         }))}
                 <div className="mb-4 grid grid-cols-2 gap-4 transition-all">
                     <label htmlFor="firstName" className="relative mt-8">
-                        <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-blue3-light">
+                        <p className="text-blue3-light absolute -top-3 left-3 rounded-md bg-white px-2">
                             First Name
                         </p>
                         <input
-                            className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md ${
+                            className={`w-full rounded-lg border p-3 shadow-md outline-quartiary-light ${
                                 registerValidation.firstName
                                     ? 'border-error'
                                     : 'border-grey-light'
@@ -86,11 +86,11 @@ export const Register = () => {
                         />
                     </label>
                     <label htmlFor="lastName" className="relative mt-8">
-                        <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-blue3-light">
+                        <p className="text-blue3-light absolute -top-3 left-3 rounded-md bg-white px-2">
                             Last Name
                         </p>
                         <input
-                            className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md ${
+                            className={`w-full rounded-lg border p-3 shadow-md outline-quartiary-light ${
                                 registerValidation.lastName
                                     ? 'border-error'
                                     : 'border-grey-light'
@@ -106,11 +106,11 @@ export const Register = () => {
                 </div>
 
                 <label htmlFor="email" className="relative my-4">
-                    <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-blue3-light">
+                    <p className="text-blue3-light absolute -top-3 left-3 rounded-md bg-white px-2">
                         Email address
                     </p>
                     <input
-                        className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md ${
+                        className={`w-full rounded-lg border p-3 shadow-md outline-quartiary-light ${
                             registerValidation.email
                                 ? 'border-error'
                                 : 'border-grey-light'
@@ -124,11 +124,11 @@ export const Register = () => {
                     />
                 </label>
                 <label htmlFor="password" className="relative my-4">
-                    <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-blue3-light">
+                    <p className="text-blue3-light absolute -top-3 left-3 rounded-md bg-white px-2">
                         Password
                     </p>
                     <input
-                        className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md ${
+                        className={`w-full rounded-lg border p-3 shadow-md outline-quartiary-light ${
                             registerValidation.password
                                 ? 'border-error'
                                 : 'border-grey-light'
@@ -204,11 +204,11 @@ export const Register = () => {
                     </div>
                 </label>
                 <label htmlFor="confirmPassword" className="relative my-4">
-                    <p className="absolute -top-3 left-3 rounded-md bg-white px-2 text-blue3-light">
+                    <p className="text-blue3-light absolute -top-3 left-3 rounded-md bg-white px-2">
                         Confirm Password
                     </p>
                     <input
-                        className={`outline-quartiary-light w-full rounded-lg border p-3 shadow-md
+                        className={`w-full rounded-lg border p-3 shadow-md outline-quartiary-light
                             ${
                                 registerValidation.confirmPassword
                                     ? 'border-error'
@@ -225,7 +225,7 @@ export const Register = () => {
                 </label>
                 <button
                     type="submit"
-                    className="bg-quartiary-light my-4 rounded-lg p-3 text-white shadow-md"
+                    className="my-4 rounded-lg bg-quartiary-light p-3 text-white shadow-md"
                 >
                     {isRegisterLoading ? (
                         <Loader className="m-auto h-6 w-6 animate-spin bg-opacity-0 bg-none" />

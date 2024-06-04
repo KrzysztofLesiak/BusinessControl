@@ -6,12 +6,15 @@ import { Employees } from '.'
 
 describe('Employees', () => {
     it('renders correctly', async () => {
-        render(
+        const { getByText } = render(
             <Provider store={store}>
                 <BrowserRouter>
                     <Employees />
                 </BrowserRouter>
             </Provider>
         )
+
+        const addButton = getByText('Add Employee')
+        expect(addButton).toBeInTheDocument()
     })
 })
