@@ -1,4 +1,7 @@
-export default {
+import type { Config } from 'jest'
+
+const config: Config = {
+    verbose: true,
     preset: 'ts-jest',
     testEnvironment: 'jest-environment-jsdom',
     automock: false,
@@ -19,3 +22,5 @@ export default {
         customExportConditions: [''],
     },
 }
+
+export default config

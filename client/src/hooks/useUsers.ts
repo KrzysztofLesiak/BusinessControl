@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { loginUser, logoutUser, setToken } from '../redux/slice/usersSlice'
 import { jwtDecode } from 'jwt-decode'
@@ -242,7 +242,7 @@ export const useUsers = (): UseUsersData => {
         user.user_id ? handleLogout() : navigate('/login')
     }
 
-    const checkAuth = () => {
+    const checkAuth = useCallback(() => {
         const token = localStorage.getItem('authToken')
 
         if (token) {
@@ -251,7 +251,7 @@ export const useUsers = (): UseUsersData => {
         } else {
             navigate('/login')
         }
-    }
+    }, [dispatch, navigate])
 
     useEffect(() => {
         registerResponseError
