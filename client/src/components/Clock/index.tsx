@@ -17,8 +17,10 @@ export const Clock = () => {
 
     return (
         <div className="text-blue1-dark text-center sm:text-left ">
-            <h1 className="text-2xl font-bold">Hello, {user.first_name}!</h1>
-            <p>
+            <h1 data-testid="hello-user" className="text-2xl font-bold">
+                Hello, {user.first_name}!
+            </h1>
+            <p data-testid="timer">
                 {new Intl.DateTimeFormat('en-GB', {
                     dateStyle: 'full',
                     timeStyle: 'medium',
