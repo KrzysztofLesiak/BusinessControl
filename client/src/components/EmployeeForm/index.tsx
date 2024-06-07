@@ -28,6 +28,7 @@ export const EmployeeForm = () => {
                     value={inputValue.firstName}
                     onChange={handleInput}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="firstName"
                 />
             </label>
             <label htmlFor="lastName" className="relative">
@@ -42,6 +43,7 @@ export const EmployeeForm = () => {
                     value={inputValue.lastName}
                     onChange={handleInput}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="lastName"
                 />
             </label>
             <label htmlFor="birthDate" className="relative">
@@ -56,6 +58,7 @@ export const EmployeeForm = () => {
                     value={inputValue.birthDate}
                     onChange={handleInput}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="birthDate"
                 />
             </label>
             <label htmlFor="street" className="relative">
@@ -70,6 +73,7 @@ export const EmployeeForm = () => {
                     value={inputValue.street}
                     onChange={handleInput}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="street"
                 />
             </label>
             <label htmlFor="city" className="relative">
@@ -84,6 +88,7 @@ export const EmployeeForm = () => {
                     value={inputValue.city}
                     onChange={handleInput}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="city"
                 />
             </label>
             <label htmlFor="postalCode" className="relative">
@@ -98,6 +103,7 @@ export const EmployeeForm = () => {
                     value={inputValue.postalCode}
                     onChange={handleInput}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="postalCode"
                 />
             </label>
             <label htmlFor="phoneNumber" className="relative">
@@ -112,6 +118,7 @@ export const EmployeeForm = () => {
                     value={inputValue.phoneNumber}
                     onChange={handleInput}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="phoneNumber"
                 />
             </label>
             <label htmlFor="status" className="relative">
@@ -125,6 +132,7 @@ export const EmployeeForm = () => {
                     value={inputValue.status}
                     onChange={handleSelect}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="status"
                 >
                     <option value="HI">Hired</option>
                     <option value="HO">Holiday</option>
@@ -143,6 +151,7 @@ export const EmployeeForm = () => {
                     value={inputValue.position}
                     onChange={handleInput}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="position"
                 />
             </label>
             <label htmlFor="salary" className="relative">
@@ -158,12 +167,14 @@ export const EmployeeForm = () => {
                     onChange={handleInput}
                     min={0}
                     disabled={!isEditable && !isOnAddPage}
+                    data-testid="salary"
                 />
             </label>
             {isOnAddPage && (
                 <button
                     className="col-start-1 mb-8 w-full rounded-lg bg-quartiary-light p-3 text-white shadow-md sm:col-end-3"
                     type="submit"
+                    data-testid="formSubmit"
                 >
                     Submit
                 </button>
