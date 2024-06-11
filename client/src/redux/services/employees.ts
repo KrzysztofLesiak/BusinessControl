@@ -11,7 +11,7 @@ export type EmployeeType = {
     phoneNumber: string
     position: string
     status: string
-    salary: number
+    salary: number | string
 }
 
 type EmployeesResponse = {

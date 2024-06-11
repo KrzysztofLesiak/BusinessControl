@@ -32,6 +32,7 @@ type useEmployeesData = {
     searchInput: string
     isEmployeesFetching: boolean
     employeesSortBy: string
+    isMissingFields: boolean
     handleSearch: (event: ChangeEvent<HTMLInputElement>) => void
     setInputValue: React.Dispatch<React.SetStateAction<EmployeeType>>
     handleInput: (e: ChangeEvent<HTMLInputElement>) => void
@@ -62,10 +63,11 @@ export const useEmployees = (): useEmployeesData => {
         phoneNumber: '',
         position: '',
         status: 'HI',
-        salary: 0,
+        salary: '',
     } as EmployeeType)
     const [isEditable, setIsEditable] = useState(false)
     const [employeesSortBy, setEmployeesSortBy] = useState('id')
+    const [isMissingFields, setIsMissingFields] = useState(false)
 
     const { searchInput, handleSearch } = useSearch()
 
@@ -100,6 +102,13 @@ export const useEmployees = (): useEmployeesData => {
 
     const handleEmployeeForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        if (Object.values(inputValue).includes('') || inputValue.salary === 0) {
+            setIsMissingFields(true)
+            return
+        } else {
+            setIsMissingFields(false)
+        }
 
         isOnAddPage
             ? addEmployee({ body: inputValue, token })
@@ -216,6 +225,7 @@ export const useEmployees = (): useEmployeesData => {
         searchInput,
         isEmployeesFetching,
         employeesSortBy,
+        isMissingFields,
         handleSearch,
         setInputValue,
         handleInput,
