@@ -43,4 +43,26 @@ describe('EmployeeForm', () => {
             expect(element.value).toBe(inputValue[key])
         })
     })
+    it('submit form with missing fields', () => {
+        global.fetch = jest.fn(() => Promise.resolve({})) as jest.Mock
+
+        render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <EmployeeForm />
+                </BrowserRouter>
+            </Provider>
+        )
+
+        const submitBtn = screen.getByTestId('formSubmit')
+        Object.keys(inputValue).map((key) => {
+            if (key === 'status') return
+
+            const element = screen.getByTestId(key) as HTMLInputElement
+            fireEvent.click(submitBtn)
+
+            expect(element).toHaveClass('border-error')
+            expect(fetch).not.toHaveBeenCalled()
+        })
+    })
 })
