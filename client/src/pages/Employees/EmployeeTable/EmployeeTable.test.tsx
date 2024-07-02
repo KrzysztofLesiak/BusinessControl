@@ -5,7 +5,7 @@ import { EmployeeTable } from '.'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from '../../../redux/store'
-import { api } from '../../../redux/services/api'
+import { api, apiURL } from '../../../redux/services/api'
 
 const data = {
     employees: [
@@ -49,7 +49,7 @@ const data = {
 }
 
 const server = setupServer(
-    http.get('http://127.0.0.1:8000/employees/', () => {
+    http.get(`${apiURL}employees/`, () => {
         return HttpResponse.json(data)
     })
 )
@@ -80,7 +80,7 @@ describe('Employees Table', () => {
 
     it('promise rejected', async () => {
         server.use(
-            http.get('http://127.0.0.1:8000/employees/', () => {
+            http.get(`${apiURL}employees/`, () => {
                 return HttpResponse.error()
             })
         )
