@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import store from '../../redux/store'
 import { BrowserRouter } from 'react-router-dom'
 import { Clock } from '.'
-import { loginUser } from '../../redux/slice/usersSlice'
+import { login } from '../../redux/slice/usersSlice'
 import { api } from '../../redux/services/api'
 
 const firstName = 'test'
@@ -25,7 +25,7 @@ afterEach(() => store.dispatch(api.util.resetApiState()))
 
 describe('Clock', () => {
     it('renders correctly', () => {
-        store.dispatch(loginUser(user))
+        store.dispatch(login(user))
 
         render(
             <Provider store={store}>

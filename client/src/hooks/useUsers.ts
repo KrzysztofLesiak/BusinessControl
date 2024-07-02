@@ -1,9 +1,13 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { loginUser, logoutUser, setToken } from '../redux/slice/usersSlice'
+import { login, logout, setToken } from '../redux/slice/usersSlice'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
-import { NewUserType, useRegisterUserMutation } from '../redux/services/users'
+import {
+    NewUser,
+    useGetTokenMutation,
+    useRegisterUserMutation,
+} from '../redux/services/users'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { SerializedError } from '@reduxjs/toolkit/react'
 
@@ -21,10 +25,14 @@ type UseUsersData = {
         email: string
         password: string
     }
-    registerInputValue: NewUserType
+    registerInputValue: NewUser
     isRegisterSuccess: boolean
     isRegisterLoading: boolean
     isRegisterError: boolean
+    isLoginError: boolean
+    isLoginLoading: boolean
+    isLoginSuccess: boolean
+    loginResponseError: FetchBaseQueryError | SerializedError | undefined
     passwordValidation: {
         length: boolean
         uppercase: boolean
@@ -90,6 +98,15 @@ export const useUsers = (): UseUsersData => {
             isError: isRegisterError,
         },
     ] = useRegisterUserMutation()
+    const [
+        getToken,
+        {
+            error: loginResponseError,
+            isSuccess: isLoginSuccess,
+            isLoading: isLoginLoading,
+            isError: isLoginError,
+        },
+    ] = useGetTokenMutation()
 
     const { user } = useAppSelector((state) => state.users)
     const dispatch = useAppDispatch()
@@ -151,36 +168,19 @@ export const useUsers = (): UseUsersData => {
         e.preventDefault()
 
         try {
-            const response = await fetch(
-                'http://127.0.0.1:8000/api/users/token/',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: inputValue.email,
-                        password: inputValue.password,
-                    }),
-                }
-            )
+            const response = await getToken(inputValue).unwrap()
 
-            if (!response.ok)
-                throw new Error(`${response.status} - ${response.statusText}`)
-
-            const data = await response.json()
-
-            dispatch(loginUser(jwtDecode(data.access)))
-            dispatch(setToken(data.access))
-            localStorage.setItem('authToken', data.access)
+            dispatch(login(jwtDecode(response.access)))
+            dispatch(setToken(response.access))
+            localStorage.setItem('authToken', response.access)
             navigate('/')
         } catch (error) {
-            // TODO - Manage errors
+            // TODO manage errors
         }
     }
 
     const handleLogout = () => {
-        dispatch(logoutUser())
+        dispatch(logout())
         localStorage.removeItem('authToken')
         navigate('/login')
     }
@@ -249,7 +249,7 @@ export const useUsers = (): UseUsersData => {
         const token = localStorage.getItem('authToken')
 
         if (token) {
-            dispatch(loginUser(jwtDecode(token)))
+            dispatch(login(jwtDecode(token)))
             dispatch(setToken(token))
         } else {
             navigate('/login')
@@ -271,6 +271,10 @@ export const useUsers = (): UseUsersData => {
         isRegisterSuccess,
         isRegisterLoading,
         isRegisterError,
+        isLoginError,
+        isLoginLoading,
+        isLoginSuccess,
+        loginResponseError,
         passwordValidation,
         registerResponseError,
         registerValidation,

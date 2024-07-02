@@ -3,20 +3,20 @@ import { Provider } from 'react-redux'
 import store from '../../redux/store'
 import { BrowserRouter } from 'react-router-dom'
 import { AppRoute } from '.'
-import { loginUser, logoutUser, setToken } from '../../redux/slice/usersSlice'
+import { login, logout, setToken } from '../../redux/slice/usersSlice'
 import { jwtDecode } from 'jwt-decode'
 
 const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NTA3OTY0LCJpYXQiOjE3MTY5MTU5NjQsImp0aSI6IjcxYzNkMjgwNmYwMzRlMGI4YWZlNjdlZjlhNmYzYzVmIiwidXNlcl9pZCI6MSwiZmlyc3RfbmFtZSI6IktyenlzenRvZiJ9.f2HGGN-EJGOmAgNAxX8FYFmBv1tIuYc_1IDwNm-k_mU'
 
 afterEach(() => {
-    store.dispatch(logoutUser())
+    store.dispatch(logout())
     localStorage.clear()
 })
 
 describe('AppRoute', () => {
     it('authenticated', () => {
-        store.dispatch(loginUser(jwtDecode(token)))
+        store.dispatch(login(jwtDecode(token)))
         store.dispatch(setToken(token))
 
         const { container } = render(
